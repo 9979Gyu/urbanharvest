@@ -16,6 +16,24 @@
 
         <script>
             $(document).ready(function () {
+
+                // Make an AJAX request to retrieve garden data
+                $.ajax({
+                    url: 'getBooking.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $retrievedGarden = data;
+                        // Iterate through the data and display it
+                        $.each(data, function(index, garden) {
+                            $('#gardenName').append('<option value="' + garden.gardenID + '">' + garden.name + '</option>');
+                        });
+                    },
+                    error: function(error) {
+                        console.log('Error fetching garden data:', error);
+                    }
+                });
+
                 sessionStorage.setItem("userType", "customer");
                 var savedName = localStorage.getItem("gardenName");
                 var savedPlot = localStorage.getItem("plotNo");

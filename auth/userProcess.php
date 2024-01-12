@@ -1,7 +1,5 @@
 <?php 
-    
-    session_start();
-    
+
     // Function to insert user data to DB
     function saveUserData($conn){
 

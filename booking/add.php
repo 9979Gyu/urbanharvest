@@ -15,6 +15,7 @@
             $(document).ready(function(){
 
                 $retrievedGarden = null;
+                $retrievedPlot = null;
 
                 // Make an AJAX request to retrieve garden data
                 $.ajax({
@@ -28,66 +29,54 @@
                             $('#gardenName').append('<option value="' + garden.gardenID + '">' + garden.name + '</option>');
                         });
                     },
-                    error: function(xerror) {
+                    error: function(error) {
                         console.log('Error fetching garden data:', error);
                     }
                 });
+
+                function getPlot(gardenID, callback) {
+                    $.ajax({
+                        url: '../garden/getPlot.php',
+                        type: 'GET',
+                        data: { gardenID: gardenID },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data.plotID);
+                            $retrievedPlot = data;
+
+                            // Call the callback function with the retrieved data
+                            callback(data);
+                        },
+                        error: function(error) {
+                            console.log('Error fetching plot data:', error);
+                            callback(false); // Pass false to the callback to indicate an error
+                        }
+                    });
+                }
 
                 $("#gardenName").change(function() {
                     var selectedValue = $(this).val();
                     $.each($retrievedGarden, function(index, garden) {
                         if (garden.gardenID === selectedValue) {
-                            console.log(garden.address);
                             $("textarea[name='gardenAddress']").val(garden.address);
-                            
-                            // $("input[name='plotNo']").val(garden.plotNo);
-                            // $("textarea[name='gardenAddress']").val(garden.address);
+
+                            // Use the callback to get the retrievedPlot data
+                            getPlot(garden.gardenID, function(retrievedPlot) {
+
+                                // Now you can use the retrievedPlot data
+                                if (retrievedPlot !== false) {
+                                    $("input[name='plotNo']").val(retrievedPlot.plotID);
+                                }
+                                else{
+                                    $("input[name='plotNo']").val(null);
+                                }
+                            });
+
                             return false;
-                        }
-                        else{
-                            console.log("hello");
+                        } else {
+                            $("textarea[name='gardenAddress']").val(null);
                         }
                     });
-                });
-
-
-                function checkDropDown(selector){
-                    var selectedValue = $(selector).val();
-                    if (selectedValue) {
-                        return selectedValue;
-                    } 
-                    else {
-                        selector.focus();
-                        return null;
-                    }
-                }
-
-                $('#addBtn').click(function(){
-                    
-                    var bookYear = $("input[name='bookYear']:checked").val();
-                    var plot = $("input[name='plotNo']").val();
-                    var address = $("textarea[name='gardenAddress']").val();
-
-                    var name = checkDropDown("#gardenName");
-
-                    if(name == "none" || bookYear == undefined){
-                        $(".message").html("Please select garden.");
-                        $("#gardenName").focus();
-                    }
-                    else{
-                        var bookDT = getDate(false, 0);
-                        var bookExpired = getDate(true, bookYear);
-
-                        localStorage.setItem("gardenName", name);
-                        localStorage.setItem("plotNo", plot);
-                        localStorage.setItem("gardenAddress", address);
-                        localStorage.setItem("bookYear", bookYear);
-                        localStorage.setItem("bookDT", bookDT);
-                        localStorage.setItem("bookExpired", bookExpired);
-                        localStorage.setItem("bookApproval", "Pending");
-                        localStorage.setItem("paymentStatus", "Pending");
-                        window.location.href = "index.html"; 
-                    }
                 });
             });
         </script>
@@ -102,7 +91,7 @@
                 <p class="message"></p>
             </article>
             <article class="mainContent">
-                <form id="bookPlot">
+                <form id="bookPlot" action="addProcess.php" method="post">
                     <table>
                         <tbody>
                             <tr>
@@ -111,7 +100,7 @@
                             <tr>
                                 <th>Name:</th>
                                 <td>
-                                    <select id="gardenName">
+                                    <select id="gardenName" name="gardenName">
                                         <option value="none" selected>Please Select Garden Name</option>
                                     </select>
                                 </td>
@@ -119,13 +108,13 @@
                             <tr>
                                 <th>Plot No:</th>
                                 <td>
-                                    <input type="text" name="plotNo" readonly disabled/>
+                                    <input type="text" name="plotNo" readonly required/>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Address:</th>
                                 <td>
-                                    <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
+                                    <textarea name="gardenAddress" readonly cols="30" rows="5" required></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -138,7 +127,7 @@
                             <tr>
                                 <td colspan="2">
                                     <button type="reset" class="normal"><i class="fas fa-eraser"></i> Clear</button>
-                                    <button type="button" class="submit" id="addBtn">+ Add</button>
+                                    <button type="submit" name="submit" class="submit" id="addBtn">+ Add</button>
                                 </td>
                             </tr>
                         </tbody>
