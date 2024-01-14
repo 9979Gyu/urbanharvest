@@ -13,6 +13,7 @@
                 $("#addAllPlotBtn").click(function(){
                     var id = $("#gardenName").val();
                     var size = $("#sizePlot").val();
+                    // event.preventDefault();
                     // Covers both empty string and null
                     if (!id) {  
                         window.alert("Please select a garden!");
