@@ -10,11 +10,24 @@
 
         <script>
             $(document).ready(function(){
-                $("#addPlotBtn").click(function(){
-                    var id = $("#g_id").val();
+                $("#addAllPlotBtn").click(function(){
+                    var id = $("#gardenName").val();
                     var size = $("#sizePlot").val();
-                    
-                    document.myForm.submit();
+                    // Covers both empty string and null
+                    if (!id) {  
+                        window.alert("Please select a garden!");
+                        return false;
+
+                    } else if (!size) {
+                        window.alert("Please fill in the size field!");
+                        return false;
+
+                    } else {
+                        console.log(id);
+                        console.log(size);
+                        // window.href.location="addprocess.php?ids=$id';";
+                        document.myForm.submit();
+                    }
 
                 });
             });
@@ -24,12 +37,6 @@
         <?php 
             require("../head.php"); 
             include("../connect.php");
-
-            $sql = "SELECT * FROM garden ";
-            // $sql = "SELECT * FROM garden";
-
-            $result = mysqli_query($conn, $sql);
-
         ?>
 
         <section>
@@ -42,21 +49,20 @@
                                 <th colspan="2">Plot</th>
                             </tr>
                             <tr>
+                            <tr>
                                 <th>Garden:</th>
                                 <td>
-                                    <select id="gardenName">
-                                        <option value="none" disabled selected>--SELECT--</option>
+                                    <select id="gardenName" name="gardenName"> <!-- added name attribute -->
+                                        <option disabled selected value="" required>--SELECT--</option>
                                         <?php
-                                            $sql = "SELECT * FROM service";
-                                            $result = mysqli_query($db, $sql);
+                                            $sql = "SELECT * FROM garden ";
+                                            $result = mysqli_query($conn, $sql);
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 $getID = $row['gardenID'];
                                                 $getName = $row['name'];
                                                 $getAddress = $row['address'];
-
                                         ?>
-                                            <option name="gardenName" value="<?php echo $getID; ?>"><?php echo $getName; ?></option>
-
+                                            <option value="<?php echo $getID; ?>" required><?php echo $getName; ?></option>
                                         <?php } ?>
                                     </select>
                                 </td>
@@ -69,7 +75,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <button type="submit" class="normal" id="addPlotBtn" name="addPlotBtn">+ Submit</button>
+                                    <button type="submit" class="normal" id="addAllPlotBtn" name="addAllPlotBtn">+ Submit</button>
                                 </td>
                             </tr>
                         </tbody>
