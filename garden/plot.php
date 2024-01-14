@@ -16,6 +16,7 @@
             $getID = $_GET['id'];
             $count = 0;
             $status_avb;
+            $status2;
 
             $sql = "SELECT * FROM garden WHERE gardenID = '$getID' ";
             // echo $getID;
@@ -57,6 +58,7 @@
                                 <!-- <th>Plot</th> -->
                                 <th>Size</th>
                                 <th>Availability</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             <?php
@@ -76,6 +78,14 @@
                                         $status_avb = "Damaged";
                                     }
 
+                                    if ($pstatus == 0) {
+                                        $status2 = "-";
+                                    } elseif ($pstatus == 1) {
+                                        $status2 = "Fixed";
+                                    } elseif ($pstatus == 2) {
+                                        $status2 = "Damaged";
+                                    }
+
                                     ?>
                                     <tr>
                                         <td>
@@ -85,6 +95,7 @@
                                         <td><?php echo $count; ?></td>
                                         <td><?php echo $psize; ?></td>
                                         <td><?php echo $status_avb; ?></td>
+                                        <td><?php echo $status2; ?></td>
                                         <td>
                                             <a class="submit" href="editplot.php?id=<?php echo $pid; ?>" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a>
                                         </td>
