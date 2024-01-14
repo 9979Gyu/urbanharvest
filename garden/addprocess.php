@@ -18,7 +18,7 @@
         $id = $_POST['g_id'];
         $sz = $_POST['sizePlot'];
 
-        $newsql = "INSERT plot(size, availability, status, gardenID) VALUES ('$sz', '1', '-', '$id')" or die ("Error inserting data into table");
+        $newsql = "INSERT plot(size, availability, status, gardenID) VALUES ('$sz', '1', '1', '$id')" or die ("Error inserting data into table");
         if ($conn->query($newsql) === TRUE){
             echo "<script>alert('New Garden Plot has added successfully')</script>";
             echo "<meta http-equiv=\"refresh\" content=\"3;URL=plot.php?id=". $id ."\">";
@@ -33,7 +33,7 @@
         // echo $id;
         // echo $sz;
 
-        $sqlquery = "INSERT plot(size, availability, status, gardenID) VALUES ('$sz', '1', '-', '$id')" or die ("Error inserting data into table");
+        $sqlquery = "INSERT plot(size, availability, status, gardenID) VALUES ('$sz', '1', '1', '$id')" or die ("Error inserting data into table");
         if ($conn->query($sqlquery) === TRUE){
             echo "<script>alert('New Garden Plot has added successfully')</script>";
             echo "<meta http-equiv=\"refresh\" content=\"3;URL=plot.php?id=". $id ."\">";
