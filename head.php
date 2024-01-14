@@ -20,7 +20,6 @@
                             echo '<li>
                             <a href="#">Garden</a>
                                 <ul class="innerlist">
-                                    <li><a href="../garden/addgarden.php"><i class="fas fa-plus"></i>Add Garden</a></li>
                                     <li><a href="../garden/viewGarden.php"><i class="fas fa-edit"></i>Manage Garden</a></li>
                                     <li><a href="../garden/addallplot.php"><i class="fas fa-plus"></i>Add Plot</a></li>
                                     <li></li>
