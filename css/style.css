@@ -171,6 +171,10 @@ button, a.submit {
     background-color: rgb(255,88,76);
 }
 
+.back {
+    background-color: rgb(76, 148, 255);
+}
+
 .dash-title {
     display: flex;
     align-items: center;
