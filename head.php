@@ -7,18 +7,33 @@
                     <li><a href="../analysis/dashboard.php">Home</a></li>
                     <?php 
                         if($_SESSION['role'] == 1) {
-                            echo "<li><a href='../user/viewUser.php'>User</a></li>";
+                            echo '<li>
+                            <a href="../user/viewUser.php">User</a>
+                            <ul class="innerlist">
+                                <li><a href="">Customer</a></li>
+                                <li><a href="">Staff</a></li>
+                                <li></li>
+                            </ul>
+                            </li>';
                         }
                         else if($_SESSION['role'] == 2){
-                            echo "<li>
-                                <a href='../garden/viewGarden.php'>Garden</a>
+                            echo '<li>
+                            <a href="#">Garden</a>
+                                <ul class="innerlist">
+                                    <li><a href="../garden/addgarden.php"><i class="fas fa-plus"></i>Add Garden</a></li>
+                                    <li><a href="../garden/viewGarden.php"><i class="fas fa-edit"></i>Manage Garden</a></li>
+                                    <li><a href="../garden/addallplot.php"><i class="fas fa-plus"></i>Add Plot</a></li>
+                                    <li></li>
+                                </ul>
                                 </li>
                                 <li>
-                                    <a href='../booking/process.php'>Booking</a>
-                                </li>
-                                <li>
-                                    <a href='../user/viewUser.php'>User</a>
-                                </li>";
+                                    <a href="../user/viewUser.php">User</a>
+                                    <ul class="innerlist">
+                                    <li><a href="">Customer</a></li>
+                                    <li><a href="">Staff</a></li>
+                                    <li></li>
+                                </ul>
+                                </li>';
                         }
                         else if($_SESSION['role'] == 3){
                             echo "<li>
