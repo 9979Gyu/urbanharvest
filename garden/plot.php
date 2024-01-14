@@ -58,13 +58,12 @@
                                 <!-- <th>Plot</th> -->
                                 <th>Size</th>
                                 <th>Availability</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             <?php
                                 $count = 0;
                                 while ($row2 = mysqli_fetch_assoc($result2)) {
-                                    $count++;
+                                    // $count++;
                                     $pid = $row2['plotID'];
                                     $psize = $row2['size'];
                                     $pavailability = $row2['availability'];
@@ -79,28 +78,30 @@
                                     }
 
                                     if ($pstatus == 0) {
-                                        $status2 = "-";
+                                        $status2 = "Damaged";
                                     } elseif ($pstatus == 1) {
                                         $status2 = "Fixed";
-                                    } elseif ($pstatus == 2) {
-                                        $status2 = "Damaged";
                                     }
 
+
+                                    if ($pavailability == 0 && $pstatus == 0) {
+                                        echo "";
+                                        
+                                    } else {
+                                        $count++;
+                                        echo '<tr>
+                                                <td>
+                                                    <input type="checkbox" name="delplot_cb[]" value="' . $pid . '"/>
+                                                    <input type="hidden" name="g_id" value="' . $getGardenID . '"/>
+                                                </td>
+                                                <td>' . $count . '</td>
+                                                <td>' . $psize . '</td>
+                                                <td>' . $status_avb . '</td>
+                                                <td><a class="submit" href="editplot.php?id=' . $pid . '" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a></td>
+                                              </tr>';
+                                    }
                                     ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="delplot_cb[]" value="<?php echo $pid; ?>"/>
-                                            <input type="hidden" name="g_id" value="<?php echo $getGardenID; ?>"/>
-                                        </td>
-                                        <td><?php echo $count; ?></td>
-                                        <td><?php echo $psize; ?></td>
-                                        <td><?php echo $status_avb; ?></td>
-                                        <td><?php echo $status2; ?></td>
-                                        <td>
-                                            <a class="submit" href="editplot.php?id=<?php echo $pid; ?>" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                        <?php   } ?>
 
                         </tbody>
                     </table>
