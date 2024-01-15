@@ -8,22 +8,33 @@
 
         // Get uid
         $user = getUserByEmail($conn, $_SESSION['email'], 1);
-        $uid = $user['userID'];
+        $uid = $user["userID"];
 
-        $getBooking = "SELECT * FROM booking WHERE userID = '" . $uid . "' ORDER BY bookDateTime DESC";
-
-        $result = $conn->query($getBooking);
-
-        if($result->num_rows > 0){
-            // Fetch data
-            $row = $result->fetch_all(MYSQLI_ASSOC);
-
+        if(isset($uid)){
+            $getBooking = "SELECT * FROM booking 
+            JOIN plot
+            ON plot.plotID = booking.plotID
+            JOIN garden 
+            ON garden.gardenID = plot.gardenID
+            WHERE userID = '" . $uid . "' 
+            ORDER BY bookDateTime DESC
+            LIMIT 1";
+    
+            $result = $conn->query($getBooking);
+    
+            if($result->num_rows > 0){
+                // Fetch data
+                $row = $result->fetch_all(MYSQLI_ASSOC);
+                echo json_encode($row);
+    
+            }
+            else{
+                return false;
+            }
         }
         else{
-            echo "No record";
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=add.php\">";
+            return false;
         }
-
     }
     else{
         // Direct to Login
@@ -31,4 +42,7 @@
         session_unset();
         echo "<meta http-equiv=\"refresh\" content=\"3;URL=../auth/login.html\">";
     }
+
+    // Close database connection
+    $conn->close();
 ?>

@@ -107,6 +107,7 @@
     <body>
         <?php 
             require("../head.php");
+            // TODO: Update book dt when approved the request
         ?>
         <section class="wrapper">
             <h1 class="title">Customer Booking</h1>

@@ -6,11 +6,19 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If the security form has been submitted
         if(isset($_POST['submit'])){
-            $result = saveSecurityAnswer($conn);
+
+            $getUser = getUserByEmail($conn, $_SESSION['email'], 0);
+
+            $getUserID = $getUser["userID"];
+
+            $result = saveSecurityAnswer($conn, $getUserID);
 
             if($result){
-                echo "Security answer saved successfully!";
-                echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
+                $updateResult = updateUserStatus($conn, $_SESSION['email'], 1);
+                if($updateResult){
+                    echo "Security answer saved successfully!";
+                    echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
+                }
             }
             else{
                 // Handle the error

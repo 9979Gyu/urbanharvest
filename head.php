@@ -26,8 +26,7 @@
                                     <ul class='innerlist'>
                                         <li><a href='../booking/index.php'><i class='fas fa-seedling'></i> Current</a></li>
                                         <li><a href='../booking/history.html'><i class='fas fa-table'></i> History</a></li>
-                                        <li><a href='../booking/viewExtend.html'><i class='fas fa-redo'></i> Extend</a></li>
-                                        <li></li>
+                                        <li><a href='../booking/viewExtend.php'><i class='fas fa-redo'></i> Extend</a></li>
                                     </ul>
                                 </li>";
                         }

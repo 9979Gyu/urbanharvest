@@ -19,12 +19,10 @@
         $isHashed = password_verify($_POST['password'], $row["password"]);
 
         if($isHashed){
-            if(!isset($_SESSION['email'])){
-                $_SESSION['email'] = $_POST['email'];
-                $_SESSION['password'] = $_POST['password'];
-                $_SESSION['role'] = $row["roleID"];
-                $_SESSION['fname'] = $row["firstName"];
-            }
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['password'] = $_POST['password'];
+            $_SESSION['role'] = $row["roleID"];
+            $_SESSION['fname'] = $row["firstName"];
             
             echo "<meta http-equiv=\"refresh\" content=\"1;URL=../analysis/dashboard.php\">";
         }

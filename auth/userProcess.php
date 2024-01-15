@@ -1,5 +1,7 @@
 <?php 
 
+    // session_start();
+
     // Function to insert user data to DB
     function saveUserData($conn){
 
@@ -29,18 +31,11 @@
                 $address . "', '" . 0 . "', '" . $hashPwd . "', '" . $role . "')" or
                 die("Error inserting new record");
 
-            if($conn->query($insertUser)){
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $hashPwd;
-                echo "<meta http-equiv=\"refresh\" content=\"2;URL=security.php\">";
-            }
-            else{
-                echo "Error: " . $insertUser . "<br>" . $conn->error;
-                echo "<meta http-equiv=\"refresh\" content=\"3;URL=register.html\">";
-            }
+            $result = $conn->query($insertUser);
+            return $result;
         }
         else{
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=register.html\">";
+            return false;
         }
 
     }
@@ -73,7 +68,7 @@
     }
 
     // Function to insert security answer to db
-    function saveSecurityAnswer($conn){
+    function saveSecurityAnswer($conn, $uid){
         $ques1 = $_POST["ques1"];
         $ques2 = $_POST["ques2"];
         $ans1 = $_POST["ans1"];
@@ -81,25 +76,12 @@
 
         if(isset($ques1) && isset($ques2) && isset($ans1) && isset($ans2)){
 
-            $getUser = getUserByEmail($conn, $_SESSION['email'], 0);
-
-            $getUserID = $getUser["userID"];
-
-            var_dump("This is the user id: " . $getUserID);
-
             $insertAnswer = "INSERT INTO answer(answerSentence, status, questionID, userID) VALUES
-            ($ans1, 1, $ques1, $getUserID), ($ans2, 1, $ques2, $getUserID)";
+            ($ans1, 1, $ques1, $getUserID), ($ans2, 1, $ques2, $uid)";
 
             $result = $conn->query($insertAnswer);
 
-            if($result){
-                $updateResult = updateUserStatus($conn, $_SESSION['email'], 1);
-
-                return $updateResult;
-            }
-            else{
-                return false;
-            }
+            return $result;
         }
         else{
             return false;

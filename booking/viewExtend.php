@@ -1,12 +1,15 @@
 <!DOCTYPE html>
+
+<?php session_start(); ?>
+
 <html>
     <head>
         <title>Urban Harvest-Booking</title>
-        <link rel="icon" href="/student/bitm/b032220008/urbanharvest/assets/img/logo.png"/>
-        <link rel="stylesheet" href="/student/bitm/b032220008/urbanharvest/css/style.css" />
+        <link rel="icon" href="../assets/img/logo.png"/>
+        <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="/student/bitm/b032220008/urbanharvest/js/script.js"></script>
+        <script src="../js/script.js"></script>
 
         <script>
             $(document).ready(function () {
@@ -131,24 +134,8 @@
         </script>
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="/student/bitm/b032220008/urbanharvest/index.html">Home</a></li>
-                    <li>
-                        <a href="#">Booking</a>
-                        <ul class="innerlist">
-                            <li><a href="index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
-                            <li><a href="history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
-                            <li></li>
-                        </ul>
-                    </li>
-                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
-                    <li><a href="#"><i class="fas fa-user"></i></a></li>
-                </ul>
-            </nav>
-        </header>
+        <?php require("../head.php"); ?>
+
         <section class="wrapper">
             <h1 class="title">Extend Booking Details</h1>
             <article>
@@ -251,12 +238,14 @@
     
                             <tr>
                                 <td colspan="2">
-                                    <!-- show if pending approval and pending payment -->
-                                    <button type="button" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
-                                    <!-- show if pending payment -->
-                                    <button type="button" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
-                                    <!-- show if pending approval -->
-                                    <button type="button" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
+                                    <div class="btnGroup">
+                                        <!-- show if pending payment -->
+                                        <button type="submit" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
+                                        <!-- show if pending approval -->
+                                        <button type="submit" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
+                                        <!-- show if pending approval and pending payment -->
+                                        <button type="submit" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -265,8 +254,6 @@
             </article>
 
         </section>
-        <footer>
-            Copyright &copy; ConnectTheDots | 2023
-        </footer>
+        <?php require("../foot.php"); ?>
     </body>
 </html>

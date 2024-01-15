@@ -10,12 +10,13 @@
         $result = saveUserData($conn);
 
         if($result){
-            echo "User data saved successfully!";
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=security.php\">";
+            $_SESSION['email'] = $email;
+            $_SESSION['password'] = $hashPwd;
+            echo "<meta http-equiv=\"refresh\" content=\"2;URL=security.php\">";
         }
         else{
             // Handle the error
-            echo "Error saving user data. Please try again";
+            echo "Error: " . $conn->error;
             echo "<meta http-equiv=\"refresh\" content=\"3;URL=register.html\">";
         }
     }

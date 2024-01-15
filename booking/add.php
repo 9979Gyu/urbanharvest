@@ -91,7 +91,7 @@
                 <p class="message"></p>
             </article>
             <article class="mainContent">
-                <form id="bookPlot" action="addProcess.php" method="post">
+                <form id="bookPlot" action="addCurrentBooking.php" method="post">
                     <table>
                         <tbody>
                             <tr>
@@ -126,8 +126,10 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <button type="reset" class="normal"><i class="fas fa-eraser"></i> Clear</button>
-                                    <button type="submit" name="submit" class="submit" id="addBtn">+ Add</button>
+                                    <div class="btnGroup">
+                                        <button type="submit" name="submit" class="submit" id="addBtn">+ Add</button>
+                                        <button type="reset" class="normal"><i class="fas fa-eraser"></i> Clear</button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
