@@ -1,5 +1,7 @@
 <?php
     
+    session_start();
+
     require("../connect.php");
     require_once("userProcess.php");
     

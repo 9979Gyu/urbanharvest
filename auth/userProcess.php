@@ -32,7 +32,13 @@
                 die("Error inserting new record");
 
             $result = $conn->query($insertUser);
-            return $result;
+
+            if($result){
+                return getUserByEmail($conn, $email, 0);
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
@@ -77,7 +83,8 @@
         if(isset($ques1) && isset($ques2) && isset($ans1) && isset($ans2)){
 
             $insertAnswer = "INSERT INTO answer(answerSentence, status, questionID, userID) VALUES
-            ($ans1, 1, $ques1, $getUserID), ($ans2, 1, $ques2, $uid)";
+            ('" . $ans1 . "', '" . 1 . "', '" . $ques1 . "', '" . $uid . "'), 
+            ('" . $ans2 . "', '" . 1 . "', '" . $ques2 . "', '" . $uid . "')";
 
             $result = $conn->query($insertAnswer);
 
