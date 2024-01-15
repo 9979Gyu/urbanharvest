@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <?php session_start(); ?>
         <title>Urban Harvest-Booking</title>
         <link rel="icon" href="../assets/img/logo.png"/>
         <link rel="stylesheet" href="../css/style.css" />

@@ -17,17 +17,19 @@ $(document).ready(function () {
         url: 'getBooking.php',
         type: 'GET',
         dataType: 'json',
+        data: {
+            isExtend: 0
+        },
         success: handleData,
         error: handleData
     });
 
     // Function to handle the data and execute additional logic
     function handleData(data) {
+        console.log(data);
         if (data !== false) {
-            console.log("HERE");
             $("#gardenName option").remove();
             $.each(data, function (index, booking) {
-                console.log("this is saved name: " + booking.bookingID);
                 if (savedID == "") {
                     
                     $("input[name='bookYear']").prop('readonly', false);
@@ -47,7 +49,6 @@ $(document).ready(function () {
             
             // Check if there is saved data
             if (savedName && savedPlot && savedAddress && savedYear && savedBookDT) {
-                console.log("this is saved name: " + savedName);
                 // Set value
                 var option = $('<option>').val(savedID).text(savedName).prop("selected", true);
                 $("#gardenName").append(option).val(savedID);
@@ -197,18 +198,32 @@ $(document).ready(function () {
         }
     });
 
-    $("button[name='edit']").submit(function(event){
+    $("button[name='edit']").click(function(event){
         $("input[name='status']").val(1);
         var result = window.confirm("Are you sure to save changes to the plot booking?");
         if(result){
+
+            $.post(
+                "updateBooking.php",
+                {
+                    type: $(this).attr('name'),
+                    bookYear: $("input[name='bookYear']:checked").val(),
+                    bid: $("input[name='bookID']").val(),
+                },
+                function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                    window.location.href = "index.php";
+                }
+            );
+
             // function to update record in db
-            var newBookYear = $("input[name='bookYear']:checked").val();
-            localStorage.setItem("bookDT", getDate(false, newBookYear));
-            localStorage.setItem("bookExpired", getDate(true, newBookYear));
-            localStorage.setItem("bookYear", newBookYear);
-            $("span:eq(2)").html(parseInt(savedYear) * 50);
-            $("input[name='bookDT']").val(localStorage.getItem("bookDT"));
-            $("input[name='bookExpired']").val(localStorage.getItem("bookExpired"));
+            // var newBookYear = $("input[name='bookYear']:checked").val();
+            // localStorage.setItem("bookDT", getDate(false, newBookYear));
+            // localStorage.setItem("bookExpired", getDate(true, newBookYear));
+            // localStorage.setItem("bookYear", newBookYear);
+            // $("span:eq(2)").html(parseInt(savedYear) * 50);
+            // $("input[name='bookDT']").val(localStorage.getItem("bookDT"));
+            // $("input[name='bookExpired']").val(localStorage.getItem("bookExpired"));
         }
         else{
             event.preventDefault();

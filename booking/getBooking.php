@@ -3,6 +3,7 @@
 
     require("../connect.php");
     require_once("../auth/userProcess.php");
+    require_once("bookingProcess.php");
 
     if($_SESSION['email']){
 
@@ -10,30 +11,44 @@
         $user = getUserByEmail($conn, $_SESSION['email'], 1);
         $uid = $user["userID"];
 
-        if(isset($uid)){
-            $getBooking = "SELECT * FROM booking 
-            JOIN plot
-            ON plot.plotID = booking.plotID
-            JOIN garden 
-            ON garden.gardenID = plot.gardenID
-            WHERE userID = '" . $uid . "' 
-            ORDER BY bookDateTime DESC
-            LIMIT 1";
-    
-            $result = $conn->query($getBooking);
-    
-            if($result->num_rows > 0){
-                // Fetch data
+        if(strtolower($_SESSION['role']) == "staff"){
+
+            $result = getAllBooking($conn);
+            if($result){
                 $row = $result->fetch_all(MYSQLI_ASSOC);
                 echo json_encode($row);
+            }
+            else{
+                echo json_encode(['error' => 'No data found']);
+            }
+
+        }
+        else{
+            if(isset($uid)){
+
+                if (isset($_GET['isExtend'])) {
+                    $isExtend = $_GET['isExtend'];
     
+                    $result = getBooking($conn, $uid, $isExtend);
+    
+                    if($result){
+                        // Fetch data
+                        $row = $result->fetch_all(MYSQLI_ASSOC);
+                        echo json_encode($row);
+            
+                    }
+                    else{
+                        echo json_encode(['error' => 'No data found']);
+                    }
+    
+                }
+                else{
+                    return false;
+                }
             }
             else{
                 return false;
             }
-        }
-        else{
-            return false;
         }
     }
     else{

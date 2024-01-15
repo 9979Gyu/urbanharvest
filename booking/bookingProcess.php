@@ -5,6 +5,16 @@
         return date("Y-m-d H:i:s");
     }
 
+    function updateBookYear($conn, $bid, $useYear){
+
+        $updateSQL = "UPDATE booking SET bookYear = '" . $useYear . "' WHERE bookingID = '" . $bid . "'";
+
+        $result = $conn->query($updateSQL);
+
+        return $result;
+
+    }
+
     function updateBooking($conn){
         $bid = $_POST['bookID'];
         $useYear = $_POST['bookYear'];
@@ -62,6 +72,44 @@
             $result = $conn->query($addSQL);
             return $result;
 
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    function getBooking($conn, $uid, $isExtend){
+        $sql = "SELECT * FROM booking 
+        JOIN plot ON plot.plotID = booking.plotID
+        JOIN garden ON garden.gardenID = plot.gardenID
+        WHERE booking.status = 1 
+        AND booking.userID = '" . $uid . "' 
+        AND booking.isExtend = '" . $isExtend . "' 
+        ORDER BY booking.bookDateTime DESC 
+        LIMIT 1";
+
+        $result = $conn->query($sql);
+
+        if($result->num_rows > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function getAllBooking($conn){
+        $sql = "SELECT * FROM booking 
+        JOIN plot ON plot.plotID = booking.plotID
+        JOIN garden ON garden.gardenID = plot.gardenID
+        WHERE booking.status = 1 
+        ORDER BY booking.bookDateTime DESC";
+
+        $result = $conn->query($sql);
+
+        if($result->num_rows > 0){
+            return $result;
         }
         else{
             return false;
