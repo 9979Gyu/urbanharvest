@@ -146,7 +146,7 @@
                 });
 
                 $('table').on('click', 'button[name="decline"]', function (event) {
-                    var result = window.confirm("Are you sure to decline this booking request? " + $(this).closest('tr').find('.indicator').val());
+                    var result = window.confirm("Are you sure to decline this booking request? ");
                     if(result){
                         // Update approval using ajax post method
                         $.ajax({

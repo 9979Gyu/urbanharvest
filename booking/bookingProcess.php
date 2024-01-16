@@ -104,11 +104,7 @@
         $plotNo = $_POST["plotNo"];
         $address = $_POST["gardenAddress"];
         $bookYear = $_POST["bookYear"];
-
-        $sqlBookDt = "SELECT bookDateTime FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 ORDER BY bookDateTime DESC LIMIT 1";
-        $getDT = $conn->query($sqlBookDt);
-        $bookDT = $getDT->fetch_assoc();
-        $bookDT = $bookDT;
+        $bookDT = getCurrentDTByTimezone();
 
         if(isset($gardenID) && isset($plotNo) && isset($address) && isset($bookYear)){
 
@@ -146,6 +142,24 @@
         }
     }
 
+    function getBookingByUid($conn, $uid){
+        $sql = "SELECT * FROM booking 
+        JOIN plot ON plot.plotID = booking.plotID
+        JOIN garden ON garden.gardenID = plot.gardenID
+        WHERE booking.userID = '" . $uid . "'
+        AND booking.bookDateTime >= DATE_SUB(NOW(), INTERVAL 3 YEAR) 
+        ORDER BY booking.bookDateTime DESC";
+
+        $result = $conn->query($sql);
+
+        if($result->num_rows > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }
+    }
+
     function getAllBooking($conn){
         $sql = "SELECT booking.bookingID, garden.name, booking.plotID, garden.address, user.email, booking.bookDateTime, booking.bookYear, booking.bookApproval, booking.paymentStatus
         FROM booking 
@@ -153,6 +167,7 @@
         JOIN garden ON garden.gardenID = plot.gardenID
         JOIN user ON user.userID = booking.userID
         WHERE booking.status = 1 
+        AND booking.bookDateTime >= DATE_SUB(NOW(), INTERVAL 3 YEAR)
         ORDER BY booking.bookDateTime DESC";
 
         $result = $conn->query($sql);
@@ -191,6 +206,41 @@
         $sql = "UPDATE booking SET bookApproval = 3, status = 0 WHERE bookingID = '" . $bid . "'";
 
         $result = $conn->query($sql);
+
+        return $result;
+
+    }
+
+    function updateBookingExtend($conn, $uid){
+        $updateStatus = "UPDATE booking 
+        SET status = 0
+        WHERE status = 1  
+        AND userID = '" . $uid . "'
+        AND bookDateTime <= DATE_SUB(NOW(), INTERVAL bookYear YEAR)";
+
+        $result = $conn->query($updateStatus);
+
+        $sql = "SELECT *
+            FROM booking
+            WHERE booking.status = 1 
+            AND userID = '" . $uid . "'
+            ORDER BY booking.bookDateTime DESC
+            LIMIT 2";
+
+        $result = $conn->query($sql);
+
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();
+
+            if ($row['isExtend'] == 1) {
+                // Update the isExtend field to 0
+                $updateSql = "UPDATE booking SET isExtend = 0 WHERE bookingID = " . $row['bookingID'];
+                $result = $conn->query($updateSql);
+            }
+        }
+        else{
+            $result = false;
+        }
 
         return $result;
 
