@@ -26,6 +26,9 @@
                                 </ul>
                                 </li>
                                 <li>
+                                    <a href="../booking/process.php">Booking</a>
+                                </li>
+                                <li>
                                     <a href="">User</a>
                                     <ul class="innerlist">
                                     <li><a href="../user/staff/staff-custList.php">Customer</a></li>
