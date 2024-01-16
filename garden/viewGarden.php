@@ -17,16 +17,19 @@
  
         ?>
 
-        <section>
+        <section class="wrapper" >
             <h1 class="title">Garden Details</h1>
 
-            <article>
+            <article class="mainContent">
                 
                 <form id="gardenPlot" method="post" action="deleteprocess.php">
 
                     <section id="btn">
-                        <button type="submit" class="delete" name="delBtn"><i class="fas fa-trash-alt"></i> Delete</button>
-                        <button type="submit" class="submit" name="addBtn"> + Add</button>
+                        <div class="btnGroup">
+                            <button type="submit" class="submit" name="addBtn"> + Add</button>
+                            <button type="submit" class="delete" name="delBtn"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </div>
+                        
                         <!-- <a class="submit" href="addgarden.html">+ Add</a> -->
                     </section>
                     

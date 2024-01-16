@@ -1,52 +1,28 @@
+
+
 <?php
+include ('../connect.php');
 
-    session_start();
+$firstName=$_POST['firstName'];
+$lastName=$_POST['lastName'];
+$email=$_POST['email'];
+$contactNo=$_POST['contactNo'];
+$address=$_POST['homeAddress'];
+$status=1;
+$password=$_POST['password'];
+$roleID=3;
 
-    require("../connect.php");
 
-    if(isset($_SESSION['email'])){
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
-        $tel = $_POST['tel'];
-        $address = $_POST['address'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+$sql = "INSERT INTO user (firstName, lastName, email, contactNo, homeAddress, status, password, roleID) VALUES 
+('$firstName', '$lastName', '$email', '$contactNo', '$address','$status', '$password', $roleID)" or die 
+("Error inserting data into table");
 
-        $role = 3;
+if ($conn->query($sql) === TRUE) {
+	echo "<script>alert('Register successfully!'); window.location.href='security.php';</script>";
+} else {
+	echo "Error" . $sql . "<br>" . $conn->error;
+}
+//Closes specified connection
+$conn->close();
 
-        if(isset($_POST['role'])){
-            $role = $_POST['role'];
-        }
-
-        $sql = "INSERT INTO user (firstName, lastName, email, contactNo, 
-            homeAddress, status, password, roleID) VALUES ('" . $fname . 
-            "', '" . $lname . "', '" . $email . "', '" . $tel . "', '" . 
-            $address . "', '" . 0 . "', '" . $password . "', '" . $role . "')" or
-            die("Error inserting new record");
-
-        if($conn->query($sql) == TRUE){
-            $retrieveQuestion = "SELECT * FROM question WHERE status = 1";
-            $result = $conn->query($retrieveQuestion);
-
-            if($result == TRUE){
-                echo "<meta http-equiv=\"refresh\" content=\"1;URL=security.php\">";
-            }
-            else{
-                echo "Error: " . $result . "<br>" . $conn->error;
-                echo "<meta http-equiv=\"refresh\" content=\"3;URL=register.html\">";
-            }
-            
-        }
-        else{
-            echo "Error: " . $sql . "<br>" . $conn->error;
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=register.html\">";
-        }
-
-    }
-    else{
-        echo "Login required";
-        echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
-    }
-    
-    $conn->close();
 ?>

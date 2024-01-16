@@ -8,25 +8,40 @@
     }
 
     require("../connect.php");
+    require_once("../booking/bookingProcess.php");
 
-    $sql = "SELECT * FROM user WHERE 
-        email = '" . $_SESSION['email'] . "' AND 
-        password = '" . $_SESSION['password'] . "'";
+    $sql = "SELECT * FROM user WHERE email = '" . $_POST['email'] . "'";
 
     $result = $conn->query($sql);
 
     if($result->num_rows == 0){
-        echo "Login failed";
+        echo "User not exist";
         session_unset();
         echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
     }
     else{
-        while($row = $result->fetch_assoc()){
+        $row = $result->fetch_assoc();
+        $hashedPwd = $row["password"];
+        $isHashed = password_verify($_POST['password'], $row["password"]);
+
+        if($isHashed){
+
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['password'] = $_POST['password'];
             $_SESSION['role'] = $row["roleID"];
             $_SESSION['fname'] = $row["firstName"];
-        }
 
-        echo "<meta http-equiv=\"refresh\" content=\"1;URL=../analysis/dashboard.php\">";
+            // Update booking extend record to current if the current extend is expired
+            $result = updateBookingExtend($conn, $row["userID"]);
+            echo "<meta http-equiv=\"refresh\" content=\"2;URL=../analysis/dashboard.php\">";
+            
+        }
+        else{
+            echo "Login failed";
+            session_unset();
+            echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
+
+        }
     }
 
     // Close database connection

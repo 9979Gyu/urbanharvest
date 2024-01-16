@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS BOOKING (
     paidAmount DECIMAL(8, 2),
     bookYear INT NOT NULL,
     bookApproval INT NOT NULL,
+    isExtend INT NOT NULL,
     status INT NOT NULL,
     plotID INT NOT NULL,
     userID INT NOT NULL,
