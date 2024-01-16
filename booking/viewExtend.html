@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<?php
-    session_start();
-?>
 <html>
     <head>
         <title>Urban Harvest-Booking</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="icon" href="../assets/img/logo.png"/>
-        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="icon" href="/student/bitm/b032220008/urbanharvest/assets/img/logo.png"/>
+        <link rel="stylesheet" href="/student/bitm/b032220008/urbanharvest/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="../js/script.js"></script>
+        <script src="/student/bitm/b032220008/urbanharvest/js/script.js"></script>
 
         <script>
             $(document).ready(function () {
-                sessionStorage.setItem("userType", "customer");
+                
                 var savedName = localStorage.getItem("gardenName");
                 var savedPlot = localStorage.getItem("plotNo");
                 var savedAddress = localStorage.getItem("gardenAddress");
-                var savedBookDT = localStorage.getItem("bookDT");
-                var savedBookExpired = localStorage.getItem("bookExpired");
-                var savedYear = localStorage.getItem("bookYear");
+                var savedBookDT = localStorage.getItem("extendDT");
+                var savedBookExpired = localStorage.getItem("extendExpired");
+                var extendYear = localStorage.getItem("extendYear");
                 $("input[name='bookYear']").prop('disabled', false);
 
                 // Check if there is saved data
-                if (savedName && savedPlot && savedAddress && savedYear && savedBookDT) {
+                if (savedName && savedPlot && savedAddress && extendYear && savedBookDT) {
                     // Display the saved data in your HTML elements
                     var option = $('<option>').val(savedName).text(savedName);
                     $("#gardenName").append(option).val(savedName);
@@ -34,24 +28,24 @@
                     $("input[name='plotNo']").val(savedPlot);
                     $("textarea[name='gardenAddress']").val(savedAddress);
                     $("input[name='bookDT']").val(savedBookDT);
-                    $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
+                    $("input[name='bookYear'][value='" + extendYear + "']").prop("checked", true);
                     $("input[name='bookExpired']").val(savedBookExpired);
-                    $("span:eq(0)").html(localStorage.getItem("bookApproval"));
-                    $("span:eq(1)").html(localStorage.getItem("paymentStatus"));
-                    $("span:eq(2)").html(parseInt(savedYear) * 50);
+                    $("span:eq(0)").html(localStorage.getItem("extendApproval"));
+                    $("span:eq(1)").html(localStorage.getItem("extendPaymentStatus"));
+                    $("span:eq(2)").html(parseInt(extendYear) * 50);
 
-                    if(localStorage.getItem("balance") && localStorage.getItem("payAmount") && localStorage.getItem("payDT")){
-                        $("input[name='balance']").val(localStorage.getItem("balance"));
-                        $("input[name='payAmount']").val(localStorage.getItem("payAmount"));
+                    if(localStorage.getItem("extendBalance") && localStorage.getItem("extendPayAmount") && localStorage.getItem("extendPayDT")){
+                        $("input[name='balance']").val(localStorage.getItem("extendBalance"));
+                        $("input[name='payAmount']").val(localStorage.getItem("extendPayAmount"));
                         $("input[name='payAmount']").prop('disabled', true);
-                        $("input[name='payDT']").val(localStorage.getItem("payDT"));
+                        $("input[name='payDT']").val(localStorage.getItem("extendPayDT"));
                     }
 
                     buttonControl();
                 } 
                 else {
                     $("article:eq(1)").hide();
-                    $(".message").html("No booking record exists. You can book <a href='add.php'>here</a>.").css("color", "Red");
+                    $(".message").html("No extend booking record exists.").css("color", "Red");
                 }
 
                 if($("span:eq(0)").html().toUpperCase() === "DECLINED"){
@@ -66,19 +60,19 @@
                         scrollToMessage();
                         $("input[name='payAmount']").focus();
                     } 
-                    else if (amount >= 50 * savedYear) {
-                        var balance = amount - 50 * savedYear;
-                        var payDT = getDate(false, 0);
+                    else if (amount >= 50 * extendYear) {
+                        var balance = amount - 50 * extendYear;
+                        var extendPayDT = getDate(true, extendYear);
                         alert("Thank you.");
                         $("input[name='balance']").val(balance);
-                        $("input[name='payDT']").val(payDT);
+                        $("input[name='payDT']").val(extendPayDT);
                         $("span:eq(1)").html("Paid");
                         $(".message").hide();
 
-                        localStorage.setItem("balance", balance);
-                        localStorage.setItem("payDT", payDT);
-                        localStorage.setItem("paymentStatus", "Paid");
-                        localStorage.setItem("payAmount", amount);
+                        localStorage.setItem("extendBalance", balance);
+                        localStorage.setItem("extendPayDT", extendPayDT);
+                        localStorage.setItem("extendPaymentStatus", "Paid");
+                        localStorage.setItem("extendPayAmount", amount);
 
                         buttonControl();
                     } 
@@ -91,7 +85,6 @@
 
                 function buttonControl(){
 
-                    $("button[name='extend']").hide();
                     $("button[name='pay']").hide();
                     $("button[name='edit']").hide();
                     $(".amount").hide();
@@ -106,16 +99,11 @@
                         $("input[name='bookYear']").prop('disabled', true);
                     }
                     else if($("span:eq(1)").html().toUpperCase() == "PAID"){
-                        $("button[name='extend']").show();
                         $(".amount").show();
                         $("input[name='bookYear']").prop('disabled', true);
                     }
                     
                 }
-
-                $("button[name='extend']").click(function(){
-                    window.location.href = "extend.html";
-                });
 
                 $("button[name='delete']").click(function(){
                     var result = window.confirm("Are you sure to cancel plot booking? Paid money is not refundable.");
@@ -128,35 +116,45 @@
                 $("button[name='edit']").click(function(){
                     var result = window.confirm("Are you sure to save changes to the plot booking?");
                     if(result){
-                        var newBookYear = $("input[name='bookYear']:checked").val();
-                        localStorage.setItem("bookDT", getDate(false, newBookYear));
-                        localStorage.setItem("bookExpired", getDate(true, newBookYear));
-                        localStorage.setItem("bookYear", newBookYear);
-                        $("span:eq(2)").html(parseInt(savedYear) * 50);
-                        $("input[name='bookDT']").val(localStorage.getItem("bookDT"));
-                        $("input[name='bookExpired']").val(localStorage.getItem("bookExpired"));
+                        var newExtendYear = $("input[name='bookYear']:checked").val();
+                        $("span:eq(2)").html(parseInt(newExtendYear) * 50);
+                        localStorage.setItem("extendDT", getDate(false, newExtendYear));
+                        localStorage.setItem("extendExpired", getDate(true, newExtendYear));
+                        localStorage.setItem("extendYear", newExtendYear);
+                        $("input[name='bookDT']").val(localStorage.getItem("extendDT"));
+                        $("input[name='bookExpired']").val(localStorage.getItem("extendExpired"));
                     }
                 });
-
-                if(localStorage.getItem("extendYear")){
-                    $("button[name='extend']").hide();
-                }
 
             });
 
         </script>
     </head>
     <body>
-        <?php
-            require("../head.php");
-        ?>
-        
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/student/bitm/b032220008/urbanharvest/index.html">Home</a></li>
+                    <li>
+                        <a href="#">Booking</a>
+                        <ul class="innerlist">
+                            <li><a href="index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
+                            <li><a href="history.html"><i class="fas fa-table"></i>History Booking</a></li>
+                            <li><a href="viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
+                    <li><a href="#"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </header>
         <section class="wrapper">
-            <h1 class="title">Current Booking Details</h1>
+            <h1 class="title">Extend Booking Details</h1>
             <article>
                 <p class="message"></p>
             </article>
-            <article id="mainContent" class="mainContent">
+            <article class="mainContent">
                 <form id="bookPlot">
                     <table class="mainTable">
                         <tbody>
@@ -166,7 +164,7 @@
                             <tr>
                                 <th>Name:</th>
                                 <td>
-                                    <select id="gardenName">
+                                    <select id="gardenName" disabled>
                                         <option value="none" selected>Please Select Garden Name</option>
                                     </select>
                                 </td>
@@ -253,14 +251,10 @@
     
                             <tr>
                                 <td colspan="2">
-                                    <!-- <button type="submit" class="pay"><img src="/assets/img/pay.png" class="icon"/> Pay</button>
-                                    <button type="submit" class="submit"><img src="/assets/img/delete.png" class="icon"/> Pay</button> -->
                                     <!-- show if pending approval and pending payment -->
                                     <button type="button" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
                                     <!-- show if pending payment -->
                                     <button type="button" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
-                                    <!-- show if success payment -->
-                                    <button type="button" name="extend" class="submit">+ Extend</button>
                                     <!-- show if pending approval -->
                                     <button type="button" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
                                 </td>
@@ -271,6 +265,8 @@
             </article>
 
         </section>
-        <?php require("../foot.php"); ?>
+        <footer>
+            Copyright &copy; ConnectTheDots | 2023
+        </footer>
     </body>
 </html>

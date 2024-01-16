@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Urban Harvest-Booking</title>
+        <link rel="icon" href="/student/bitm/b032220008/urbanharvest/assets/img/logo.png"/>
+        <link rel="stylesheet" href="/student/bitm/b032220008/urbanharvest/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/student/bitm/b032220008/urbanharvest/js/script.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                var savedName = localStorage.getItem("gardenName");
+                var savedPlot = localStorage.getItem("plotNo");
+                var savedAddress = localStorage.getItem("gardenAddress");
+                var savedYear = localStorage.getItem("bookYear");
+
+                // Check if there is saved data
+                if (savedName && savedPlot && savedAddress && savedYear) {
+                    // Display the saved data in your HTML elements
+                    var option = $('<option>').val(savedName).text(savedName);
+                    $("#gardenName").append(option).val(savedName);
+
+                    $("input[name='plotNo']").val(savedPlot);
+                    $("textarea[name='gardenAddress']").val(savedAddress);
+                    $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
+                } 
+                else {
+                    $("article:eq(1)").hide();
+                    $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
+                }
+
+                $("button[name='submit']").click(function(){
+
+                    var bookYear = $("input[name='bookYear']:checked").val();
+
+                    localStorage.setItem("extendYear", bookYear);
+                    localStorage.setItem("extendDT", getDate(false, 0));
+                    localStorage.setItem("extendExpired", getDate(true, bookYear));
+                    localStorage.setItem("extendApproval", "Pending");
+                    localStorage.setItem("extendPaymentStatus", "Pending");
+
+                    window.location.href = "viewExtend.html";
+                });
+
+            });
+        </script>
+
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/student/bitm/b032220008/urbanharvest/index.html">Home</a></li>
+                    <li>
+                        <a href="#">Booking</a>
+                        <ul class="innerlist">
+                            <li><a href="index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
+                            <li><a href="history.html"><i class="fas fa-table"></i>History Booking</a></li>
+                            <li><a href="viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
+                    <li><a href="#"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="wrapper">
+            <h1 class="title">Extend Booking Details</h1>
+            <article>
+                <p class="message"></p>
+            </article>
+            <article class="mainContent">
+                <p class="message"></p>
+                <form id="bookPlot">
+                    <table>
+                        <tr>
+                            <th colspan="2">Garden</th>
+                        </tr>
+                        <tr>
+                            <th>Name:</th>
+                            <td>
+                                <select id="gardenName" disabled>
+                                    <option value="none" selected>Please Select Garden Name</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Plot No:</th>
+                            <td>
+                                <input type="text" name="plotNo" readonly disabled/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td>
+                                <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Use Year (Maximum is 2):</th>
+                            <td>
+                                <input type="radio" name="bookYear" value="1" checked/> 1 Year
+                                <input type="radio" name="bookYear" value="2"/> 2 Years
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="normal" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> Back</button>
+                                <button type="button" name="submit" class="submit">+ Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form> 
+            </article>
+
+        </section>
+        <footer>
+            Copyright &copy; ConnectTheDots | 2023
+        </footer>
+    </body>
+</html>

@@ -2,10 +2,17 @@
     
     session_start();
 
+    if(!isset($_SESSION['email'])){
+        $_SESSION['email'] = $_POST['email'];
+        $_SESSION['password'] = $_POST['password'];
+    }
+
     require("../connect.php");
     require_once("../booking/bookingProcess.php");
 
-    $sql = "SELECT * FROM user WHERE email = '" . $_POST['email'] . "'";
+    $sql = "SELECT * FROM user WHERE 
+        email = '" . $_SESSION['email'] . "' AND 
+        password = '" . $_SESSION['password'] . "'";
 
     $result = $conn->query($sql);
 
@@ -35,6 +42,7 @@
             echo "Login failed";
             session_unset();
             echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
+
         }
     }
 

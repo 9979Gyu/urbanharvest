@@ -3,8 +3,8 @@
 
     require("../connect.php");
 
-    function getPlot($conn, $gardenID){
-        $sql = "SELECT * FROM plot WHERE status = 1 AND availability = 1 AND gardenID = '" . $gardenID. "'LIMIT 1";
+    function getPlot($conn){
+        $sql = "SELECT * FROM plot WHERE status = 1";
         $result = $conn->query($sql);
 
         if($result){
@@ -19,13 +19,10 @@
     }
 
     if(isset($_SESSION['email'])){
-
-        $gardenID = isset($_GET['gardenID']) ? $_GET['gardenID'] : null;
-        
-        $plotData = getPlot($conn, $gardenID);
+        $plotData = getPlot($conn);
 
         if($plotData !== false){
-            echo json_encode($plotData[0]);
+            echo json_encode($plotData);
         }
         
     }
