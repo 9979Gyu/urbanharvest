@@ -24,6 +24,7 @@
                 <form id="bookPlot">
                     <input type="text" name="isExtend" value="1" hidden/>
                     <input type="text" name="status" value="1" hidden/>
+                    <input type="text" name="bookID" hidden/>
                     <table class="mainTable">
                         <tbody>
                             <tr>

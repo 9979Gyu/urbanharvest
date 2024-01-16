@@ -6,19 +6,42 @@
  
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_SESSION['email'])){
-
+            $result = false;
             $user = getUserByEmail($conn, $_SESSION["email"], 1);
             $uid = $user["userID"];
 
             if($uid != null){
-                $result = addExtendBooking($conn, $uid, 1);
-                if($result){
-                    echo "<meta http-equiv=\"refresh\" content=\"3;URL=viewExtend.php\">";
+
+                // get the last booking date time
+                $sqlBookDt = "SELECT bookDateTime FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 ORDER BY bookDateTime DESC LIMIT 1";
+                $getDT = $conn->query($sqlBookDt);
+                $bookDT = $getDT->fetch_assoc();
+                $bookDT = $bookDT['bookDateTime'];
+                $now = getCurrentDTByTimezone();
+
+                // Creates DateTime objects
+                $bookDT = strtotime($bookDT);
+                $now = strtotime($now);
+
+                // Calculates the difference between DateTime objects
+                $diff = ($now - $bookDT)/60/60/24;
+
+                if($diff >= 7){
+                    $result = addExtendBooking($conn, $uid, 1); 
+                    
+                    if($result){
+                        echo "<meta http-equiv=\"refresh\" content=\"3;URL=viewExtend.php\">";
+                    }
+                    else{
+                        echo "Failed to update record!";
+                        echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
+                    }
                 }
                 else{
-                    echo "Failed to update record!";
+                    echo "Sorry you can only extend booking a week before booking expired!";
                     echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                 }
+                
             }
             else{
                 echo "Login required!";

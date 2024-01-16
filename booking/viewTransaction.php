@@ -22,7 +22,7 @@
             </article>
             <article id="mainContent" style="margin-bottom: 50px;">
                 <table class="mainTable">
-                    <!-- <input type="text" name="bid" value="<?php echo isset($_SESSION["bookingID"]) ? $_SESSION["bookingID"] : ''; ?>" hidden/> -->
+                    
                     <tbody>
                         <tr>
                             <th colspan="2">Garden</th>

@@ -14,7 +14,6 @@
                             <ul class="innerlist">
                                 <li><a href="../user/admin/admin-custList.php">Customer</a></li>
                                 <li><a href="../user/admin/admin-add-staff.php">Staff</a></li>
-                                <li></li>
                             </ul>
                             </li>';
                         }
@@ -22,17 +21,14 @@
                             echo '<li>
                             <a href="#">Garden</a>
                                 <ul class="innerlist">
-                                    <li><a href="../garden/addgarden.php"><i class="fas fa-plus"></i>Add Garden</a></li>
-                                    <li><a href="../garden/viewGarden.php"><i class="fas fa-edit"></i>Manage Garden</a></li>
-                                    <li><a href="../garden/addplot.html"><i class="fas fa-plus"></i>Add Plot</a></li>
-                                    <li></li>
+                                    <li><a href="../garden/viewGarden.php"><i class="fas fa-edit"></i> Manage Garden</a></li>
+                                    <li><a href="../garden/addallplot.php"><i class="fas fa-plus"></i> Add Plot</a></li>
                                 </ul>
                                 </li>
                                 <li>
                                     <a href="">User</a>
                                     <ul class="innerlist">
                                     <li><a href="../user/staff/staff-custList.php">Customer</a></li>
-                                    <li></li>
                                 </ul>
                                 </li>';
                         }
@@ -41,9 +37,8 @@
                                     <a href='#'>Booking</a>
                                     <ul class='innerlist'>
                                         <li><a href='../booking/index.php'><i class='fas fa-seedling'></i> Current</a></li>
-                                        <li><a href='../booking/history.html'><i class='fas fa-table'></i> History</a></li>
-                                        <li><a href='../booking/viewExtend.html'><i class='fas fa-redo'></i> Extend</a></li>
-                                        <li></li>
+                                        <li><a href='../booking/history.php'><i class='fas fa-table'></i> History</a></li>
+                                        <li><a href='../booking/viewExtend.php'><i class='fas fa-redo'></i> Extend</a></li>
                                     </ul>
                                 </li>";
                         }

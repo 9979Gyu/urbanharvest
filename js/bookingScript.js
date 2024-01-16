@@ -28,12 +28,17 @@ $(document).ready(function () {
 
     // Function to handle the data and execute additional logic
     function handleData(data) {
-        console.log(data);
+        console.log(data.length);
+        console.log($("input[name='isExtend']").val());
         if (data !== false) {
             $("#gardenName option").remove();
+
+            if(data.length > 1){
+                extended = 1;
+            }
+
             $.each(data, function (index, booking) {
                 if(booking.isExtend == $("input[name='isExtend']").val()){
-                    extended = booking.isExtend;
                     if (savedID == "") {
                     
                         $("input[name='bookYear']").prop('disabled', false);
@@ -146,10 +151,20 @@ $(document).ready(function () {
             $(".amount").show();
             $("input[name='bookYear']").prop('disabled', true);
         }
-        else if($("span:eq(1)").html().toUpperCase() == "PAID" && extended == 0){
+        else if(extended == 1 && $("span:eq(1)").html().toUpperCase() == "PAID"){
+            $("button[name='extend']").hide();
+            $(".amount").show();
+            $("input[name='bookYear']").prop('disabled', true);
+            $("input[name='payAmount']").prop('readonly', true);
+        }
+        else if($("span:eq(1)").html().toUpperCase() == "PAID"){
             $("button[name='extend']").show();
             $(".amount").show();
             $("input[name='bookYear']").prop('disabled', true);
+            $("input[name='payAmount']").prop('readonly', true);
+        }
+        else{
+            $(".amount").hide();
         }
     }
     
@@ -257,7 +272,7 @@ $(document).ready(function () {
                 },
                 function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
-                    window.location.href = "index.php";
+                    window.location.reload();
                 }
             );
 

@@ -31,8 +31,15 @@
                 if (isset($_GET['isExtend'])) {
                     $isExtend = $_GET['isExtend'];
     
-                    $result = getBooking($conn, $uid, $isExtend);
-    
+                    if($isExtend == "all"){
+                        $result = getBookingByUid($conn, $uid);
+                        
+                    }
+                    else{
+                        $result = getBooking($conn, $uid, $isExtend);
+                    
+                    }
+
                     if($result){
                         // Fetch data
                         $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -42,6 +49,7 @@
                     else{
                         echo json_encode(['error' => 'No data found']);
                     }
+                    
     
                 }
                 else{
