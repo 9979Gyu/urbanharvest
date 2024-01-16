@@ -10,14 +10,12 @@
     require("../connect.php");
     require_once("../booking/bookingProcess.php");
 
-    $sql = "SELECT * FROM user WHERE 
-        email = '" . $_SESSION['email'] . "' AND 
-        password = '" . $_SESSION['password'] . "'";
+    $sql = "SELECT * FROM user WHERE email = '" . $_POST['email'] . "'";
 
     $result = $conn->query($sql);
 
     if($result->num_rows == 0){
-        echo "Login failed";
+        echo "User not exist";
         session_unset();
         echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
     }
