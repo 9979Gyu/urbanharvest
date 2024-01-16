@@ -156,11 +156,7 @@ button {
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 18px;
-}
-
-.btnGroup {
-    display: flex;
-    justify-content: flex-end;
+    float: right;
 }
 
 .submit {

@@ -1,8 +1,8 @@
 <?php
 
-    $servername = "localhost:3307";
+    $servername = "localhost:3306";
     $username = "root";
-    $password = "abc123";
+    $password = "";
     $dbname = "urbanharvest";
 
     // Create connection
