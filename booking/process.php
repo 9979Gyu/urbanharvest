@@ -7,7 +7,15 @@
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
         <script src="../js/script.js"></script>
+
         <script>
             $(document).ready(function(){
 
@@ -63,14 +71,14 @@
                                 }
 
                                 if(row.bookApproval == 0){
-                                    newRow = newRow + '<td>' +
+                                    newRow = newRow + '<td class="no-print">' +
                                         '<button class="submit" name="approve"><i class="far fa-check-circle"></i></button>' +
                                         '<button class="delete" name="decline"><i class="far fa-times-circle"></i></button>' +
                                         '</td>' +
                                         '</tr>';
                                 }
                                 else{
-                                    newRow = newRow + '<td>' + '</td>' + '</tr>';
+                                    newRow = newRow + '<td class="no-print">' + '</td>' + '</tr>';
                                 }
 
                                 dtTable.append(newRow);
@@ -196,9 +204,91 @@
                     event.preventDefault();
                 });
 
+                // function tableToDataURL(table) {
+                //     const svg = new XMLSerializer().serializeToString(table);
+                //     const dataURL = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+                //     return dataURL;
+                // }
+
+                // $(".mainContent").on("click", "#btnExport", function () {
+                //     console.log("ispdf");
+                //     // Create a new jsPDF instance
+                //     const pdf = new jsPDF();
+
+                //     // Get the HTML content of the table
+                //     const table = document.getElementById('bookingRequest');
+
+                //     // Convert the table to a Data URL representation
+                //     const dataURL = tableToDataURL(table);
+
+                //     // Add an image of the table to the PDF
+                //     pdf.addImage(dataURL, 'PNG', 10, 10, 180, 0);
+
+                //     // Save the PDF
+                //     pdf.save('exported-table.pdf');
+                //     // html2canvas($('#tblCustomers')[0], {
+                //     //     onrendered: function (canvas) {
+                //     //         var data = canvas.toDataURL();
+                //     //         var docDefinition = {
+                //     //             content: [{
+                //     //                 image: data,
+                //     //                 width: 500
+                //     //             }]
+                //     //         };
+                //     //         pdfMake.createPdf(docDefinition).download("customer-details.pdf");
+                //     //     }
+                //     // });
+                // });
+
+                // $("#example").tableHTMLExport({
+
+                //     type:'pdf',
+                //     orientation:'p'
+                //     filename: 'bookingRequest.pdf'
+
+                //     // CSS selector(s)
+                //     ignoreColumns: '.ignore',
+                //     ignoreRows: '.ignore',
+                                
+                //     // your html table has html content?
+                //     htmlContent: false,
+
+                //     // debug
+                //     consoleLog: false,        
+
+                // });
+
+                function downloadPDFWithBrowserPrint() {
+                    window.print();
+                }
+                document.querySelector('#btnExport').addEventListener('click', downloadPDFWithBrowserPrint);
+
                 
             });
         </script>
+
+        <style>
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+
+                #bookingRequest,
+                #bookingRequest * {
+                    visibility: visible;
+                }
+
+                #bookingRequest {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+
+                .no-print {
+                    display: none;
+                }
+            }
+        </style>
 
     </head>
     <body>
@@ -215,7 +305,7 @@
                     <input type="radio" name="selection" value="declined" /> Declined
                 </div>
                 <br/>
-                <table border="border-collapse">
+                <table id="bookingRequest" border="border-collapse">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -226,7 +316,7 @@
                             <th>Use Year</th>
                             <th>Approval</th>
                             <th>Payment Status</th>
-                            <th>Action</th>
+                            <th class="no-print">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -235,6 +325,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <button id="btnExport" type="button">PDF</button>
             </article>
         </section>
         <footer>

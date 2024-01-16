@@ -52,8 +52,8 @@ if (isset($_SESSION['email'])) {
                     // Disable the selected option in Question 2
                     $('select[name="question2"] option').prop('disabled', false);
                     $('select[name="question2"] option[value="' + selectedOption + '"]').prop('disabled', true);
-                // Show the answer input for Question 1
-                $('input[name="ans1"]').prop('disabled', false).show();
+                    // Show the answer input for Question 1
+                    $('input[name="ans1"]').prop('disabled', false).show();
 
                 } else {
                     // Hide the answer input for Question 1 if no question is selected
@@ -68,8 +68,8 @@ if (isset($_SESSION['email'])) {
                     // Disable the selected option in Question 1
                     $('select[name="question1"] option').prop('disabled', false);
                     $('select[name="question1"] option[value="' + selectedOption + '"]').prop('disabled', true);
-                // Show the answer input for Question 2
-                $('input[name="ans2"]').prop('disabled', false).show();
+                    // Show the answer input for Question 2
+                    $('input[name="ans2"]').prop('disabled', false).show();
                     
                 } else {
                     // Hide the answer input for Question 2 if no question is selected
