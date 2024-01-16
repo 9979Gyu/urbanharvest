@@ -27,8 +27,9 @@
                 <p class="message"></p>
             </article>
             <article id="mainContent" class="mainContent">
-                <form id="bookPlot" method="POST" action="updateBooking.php">
+                <form id="bookPlot">
                     <input type="text" name="status" value="1" hidden/>
+                    <input type="text" name="isExtend" value="0" hidden/>
                     <input type="text" name="bookID" hidden/>
                     <table class="mainTable">
                         <tbody>

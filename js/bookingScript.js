@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     var savedID = "";
     var savedName = "";
     var savedPlot = "";
@@ -10,6 +11,7 @@ $(document).ready(function () {
     var savedPayStatus = "";
     var savedPaid = "";
     var savedPayDT = "";
+    var extended = 0;
 
     
     // Make an AJAX request to retrieve data
@@ -18,7 +20,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         data: {
-            isExtend: 0
+            isExtend: $("input[name='isExtend']").val()
         },
         success: handleData,
         error: handleData
@@ -30,21 +32,25 @@ $(document).ready(function () {
         if (data !== false) {
             $("#gardenName option").remove();
             $.each(data, function (index, booking) {
-                if (savedID == "") {
+                if(booking.isExtend == $("input[name='isExtend']").val()){
+                    extended = booking.isExtend;
+                    if (savedID == "") {
                     
-                    $("input[name='bookYear']").prop('readonly', false);
-                    $("input[name='bookID']").val(booking.bookingID);
-                    savedID = booking.gardenID;
-                    savedName = booking.name;
-                    savedPlot = booking.plotID;
-                    savedAddress = booking.address;
-                    savedBookApproval = booking.bookApproval;
-                    savedBookDT = booking.bookDateTime;
-                    savedYear = booking.bookYear;
-                    savedPayStatus = booking.paymentStatus;
-                    savedPaid = booking.paidAmount;
-                    savedPayDT = booking.paymentDateTime;
+                        $("input[name='bookYear']").prop('disabled', false);
+                        $("input[name='bookID']").val(booking.bookingID);
+                        savedID = booking.gardenID;
+                        savedName = booking.name;
+                        savedPlot = booking.plotID;
+                        savedAddress = booking.address;
+                        savedBookApproval = booking.bookApproval;
+                        savedBookDT = booking.bookDateTime;
+                        savedYear = booking.bookYear;
+                        savedPayStatus = booking.paymentStatus;
+                        savedPaid = booking.paidAmount;
+                        savedPayDT = booking.paymentDateTime;
+                    }
                 }
+
             });
             
             // Check if there is saved data
@@ -114,7 +120,6 @@ $(document).ready(function () {
     }
 
     if($("input[name='bookExpired']") != null){
-        $("input[name='bookYear']").prop('readonly', true);
         $("input[name='plotNo']").prop('readonly', true);
         $("textarea[name='gardenAddress']").prop('readonly', true);
         $("input[name='bookDT']").prop('readonly', true);
@@ -126,6 +131,7 @@ $(document).ready(function () {
 
     function buttonControl(){
 
+        console.log(extended);
         $("button[name='extend']").hide();
         $("button[name='pay']").hide();
         $("button[name='edit']").hide();
@@ -138,14 +144,13 @@ $(document).ready(function () {
             $("span:eq(1)").html().toUpperCase() == "PENDING"){
             $("button[name='pay']").show();
             $(".amount").show();
-            $("input[name='bookYear']").prop('readonly', true);
+            $("input[name='bookYear']").prop('disabled', true);
         }
-        else if($("span:eq(1)").html().toUpperCase() == "PAID"){
+        else if($("span:eq(1)").html().toUpperCase() == "PAID" && extended == 0){
             $("button[name='extend']").show();
             $(".amount").show();
-            $("input[name='bookYear']").prop('readonly', true);
+            $("input[name='bookYear']").prop('disabled', true);
         }
-
     }
     
     // If button pay clicked, 
@@ -162,15 +167,40 @@ $(document).ready(function () {
             event.preventDefault();
         } 
         else if (amount >= 50 * savedYear) {
+            // Calculate balance
             var balance = amount - 50 * savedYear;
+
+            // Get current DateTime
             var payDT = getDate(false, 0);
-            alert("Thank you.");
+
+            alert("Thank you for booking the place.");
             $("input[name='balance']").val(balance);
             $("input[name='payDT']").val(payDT);
             $("span:eq(1)").html("Paid");
             $(".message").hide();
 
             buttonControl();
+
+            $.ajax({
+                url: "updateBooking.php",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    bid: $("input[name='bookID']").val(),
+                    type: "pay",
+                    paidAmount: $("input[name='payAmount']").val(),
+                },
+                success: function(data, status) {
+                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                },
+                error: function(data, status) {
+                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                }
+             
+            });
+
+            window.location.reload();
+
         } 
         else {
             $(".message").html("Sorry, the amount is not enough. Try again");
@@ -184,13 +214,28 @@ $(document).ready(function () {
         window.location.href = "extend.php";
     });
 
-    $("button[name='delete']").submit(function(event){
+    $("button[name='delete']").click(function(event){
         $("input[name='status']").val(0);
         var result = window.confirm("Are you sure to cancel plot booking? Paid money is not refundable.");
         if(result){
             // function to update record status in db
+            $.ajax({
+                url: "updateBooking.php",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    bid: $("input[name='bookID']").val(),
+                    type: "delete",
+                },
+                success: function(data, status) {
+                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                },
+                error: function(data, status) {
+                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                }
+             
+            });
 
-            localStorage.clear();
             window.location.reload();
         }
         else{
@@ -216,23 +261,10 @@ $(document).ready(function () {
                 }
             );
 
-            // function to update record in db
-            // var newBookYear = $("input[name='bookYear']:checked").val();
-            // localStorage.setItem("bookDT", getDate(false, newBookYear));
-            // localStorage.setItem("bookExpired", getDate(true, newBookYear));
-            // localStorage.setItem("bookYear", newBookYear);
-            // $("span:eq(2)").html(parseInt(savedYear) * 50);
-            // $("input[name='bookDT']").val(localStorage.getItem("bookDT"));
-            // $("input[name='bookExpired']").val(localStorage.getItem("bookExpired"));
         }
         else{
             event.preventDefault();
         }
     });
-
-    // Hide the extend button if user already extended the booking
-    if(localStorage.getItem("extendYear")){
-        $("button[name='extend']").hide();
-    }
 
 });

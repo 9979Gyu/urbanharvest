@@ -10,70 +10,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="../js/script.js"></script>
-
-        <script>
-            $(document).ready(function(){
-
-                var savedID = "";
-                var savedName = "";
-                var savedPlot = "";
-                var savedAddress = "";
-                var savedBookApproval = "";
-                var savedBookDT = "";
-                var savedYear = "";
-                var savedBookExpired = "";
-                var savedPayStatus = "";
-                var savedPaid = "";
-                var savedPayDT = "";
-                
-                // Make an AJAX request to retrieve data
-                $.ajax({
-                    url: 'getBooking.php',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: handleData,
-                    error: function (error) {
-                        console.log('Error fetching booking data:', error);
-                    }
-                });
-
-                function handleData(data) {
-                    if (data !== false) {
-                        $("#gardenName option").remove();
-                        $.each(data, function (index, booking) {
-                            if (savedID == "") {
-                                $("input[name='bookYear']").prop('readonly', false);
-                                $("input[name='bookID']").val(booking.bookingID);
-                                savedID = booking.gardenID;
-                                savedName = booking.name;
-                                savedPlot = booking.plotID;
-                                savedAddress = booking.address;
-                                savedYear = booking.bookYear;
-                            }
-                        });
-
-                        // Check if there is saved data
-                        if (savedName && savedPlot && savedAddress && savedYear) {
-                            // Display the saved data in your HTML elements
-                            var option = $('<option>').val(savedID).text(savedName).prop("selected", true);
-                            $("#gardenName").append(option).val(savedID);
-
-                            $("input[name='plotNo']").val(savedPlot);
-                            $("textarea[name='gardenAddress']").val(savedAddress);
-                            $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
-                        } 
-                        else {
-                            $("article:eq(1)").hide();
-                            $(".message").html("No booking record exists. You can book <a href='add.php'>here</a>.").css("color", "Red");
-                        }
-
-                        $("button[name='submit']").click(function(){
-                            savedYear = $("input[name='bookYear']:checked").val();
-                        });
-                    }
-                }
-            });
-        </script>
+        <script src="../js/bookingScript.js"></script>
+        
 
     </head>
     <body>

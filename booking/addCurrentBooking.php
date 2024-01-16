@@ -15,8 +15,14 @@
                 $user = getUserByEmail($conn, $_SESSION["email"], 1);
                 $uid = $user["userID"];
 
-                if($uid != null){
+                // Check if a booking already exists for the user and garden
+                $existingBooking = getBooking($conn, $uid, 0);
+
+                if (!$existingBooking) {
+
+                    // Add a new booking
                     $result = addBooking($conn, $uid, 0);
+
                     if($result){
                         echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                     }
@@ -24,12 +30,11 @@
                         echo "Failed to update record!";
                         echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                     }
+                } else {
+                    echo "Booking already exists for this user and garden.";
+                    echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                 }
-                else{
-                    echo "Login required!";
-                    session_unset();
-                    echo "<meta http-equiv=\"refresh\" content=\"3;URL=../auth/login.html\">";
-                }
+ 
             }
             else{
                 echo "Error saving booking record. Please try again";

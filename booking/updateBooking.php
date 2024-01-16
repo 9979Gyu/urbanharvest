@@ -21,20 +21,40 @@
                 }
 
             }
-            // else if(isset($_POST['type']) && strtolower($_POST['type']) == 'pay'){
-            //     // $result = updateBooking($conn);
-            //     // if($result){
-            //     //     echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
-            //     // }
-            //     // else{
-            //     //     echo "Failed to update record!";
-            //     //     echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
-            //     // }
-            // }
-            // else if(isset($_POST['type']) && strtolower($_POST['type']) == 'delete'){
+            else if(isset($_POST['type']) && strtolower($_POST['type']) == 'pay'){
+
+                $bid = $_POST['bid'];
+                $paidAmount = $_POST['paidAmount'];
+                $result = false;
+                if(isset($bid) && isset($paidAmount)){
+                    $result = updatePayment($conn, $bid, $paidAmount);
+                }
+
+                if($result){
+                    echo "Data successfully updated";
+                }
+                else{
+                    echo "Failed to update record!";
+                }
+
+            }
+            else if(isset($_POST['type']) && strtolower($_POST['type']) == 'delete'){
+                $bid = $_POST['bid'];
+                $result = false;
+                if(isset($bid)){
+                    $result = updateBookingStatus($conn, $bid);
+                }
+
+                if($result){
+                    echo "Data successfully updated";
+                }
+                else{
+                    echo "Failed to update record!";
+                }
+            }
+            // else if(isset($_POST['type']) && strtolower($_POST['type']) == 'extend'){
 
             // }
-
             
         }
         else{

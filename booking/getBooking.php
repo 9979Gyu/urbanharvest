@@ -11,7 +11,8 @@
         $user = getUserByEmail($conn, $_SESSION['email'], 1);
         $uid = $user["userID"];
 
-        if(strtolower($_SESSION['role']) == "staff"){
+        // For staff view
+        if(strtolower($_SESSION['role']) == 2){
 
             $result = getAllBooking($conn);
             if($result){
@@ -24,6 +25,7 @@
 
         }
         else{
+            // Customer view
             if(isset($uid)){
 
                 if (isset($_GET['isExtend'])) {

@@ -3,7 +3,6 @@
     require("../connect.php");
     require_once("bookingProcess.php");
     require_once("../auth/userProcess.php");
-    // window.location.href = "viewExtend.php";
  
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_SESSION['email'])){
@@ -12,7 +11,7 @@
             $uid = $user["userID"];
 
             if($uid != null){
-                $result = addBooking($conn, $uid, 1);
+                $result = addExtendBooking($conn, $uid, 1);
                 if($result){
                     echo "<meta http-equiv=\"refresh\" content=\"3;URL=viewExtend.php\">";
                 }
