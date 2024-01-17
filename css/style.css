@@ -268,3 +268,23 @@ p.new{
     color: red;
 }
 
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #bookingRequest,
+    #bookingRequest * {
+        visibility: visible;
+    }
+
+    #bookingRequest {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .no-print {
+        display: none;
+    }
+}

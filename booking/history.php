@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="../js/script.js"></script>
+        <script type="text/javascript" src="../js/script.js"></script>
+        <script type="text/javascript" src="../js/exportScript.js"></script>
 
         <script>
             $(document).ready(function(){
@@ -117,7 +118,10 @@
         <section class="wrapper">
             <h1 class="title">Booking Details History</h1>
             <article class="mainContent">
-                <table border="border-collapse">
+                <div>
+                    <button id="btnExport" class="normal" type="button">Print PDF</button>
+                </div>
+                <table id="bookingRequest" border="border-collapse">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -131,22 +135,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>
-                                <span>Taman Desa Idaman</span>
-                                <span>Plot 2</span>
-                            </td>
-                            <td>Taman Desa Idaman, Durian Tunggal, 76100, Melaka</td>
-                            <td>16/10/2023 07:46</td>
-                            <td>Approved</td>
-                            <td>
-                                <span>Amount:RM 50</span>
-                                <span>DateTime: 26/8/2021 20:00</span>
-                            </td>
-                            <td>Paid</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> 
             </article>
         </section>
         <?php require("../foot.php"); ?>
