@@ -65,4 +65,16 @@ $(document).ready(function(){
         });
     });
 
+    $("button[name='submit']").click(function(event){
+        // Validate input field
+        $plot = $("input[name='plotNo'").val();
+        $address = $("textarea[name='gardenAddress'").html();
+
+        if($plot == "" && address == ""){
+            $(".message").html("Sorry there is no available plot in this area")
+            event.preventDefault();
+        }
+
+    });
+
 });

@@ -4,7 +4,7 @@
     require("../connect.php");
 
     function getGarden($conn){
-        $sql = "SELECT * FROM garden WHERE status = 1";
+        $sql = "SELECT DISTINCT garden.* FROM garden JOIN plot ON garden.gardenID = plot.gardenID WHERE garden.status = 1 AND plot.status = 1 AND plot.availability = 1";
         $result = $conn->query($sql);
 
         if($result){
