@@ -3,6 +3,14 @@ $(document).ready(function(){
     $retrievedGarden = null;
     $retrievedPlot = null;
 
+    var map = L.map('map').setView([0, 0], 2); // Set the initial view
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker;
+
     // Make an AJAX request to retrieve garden data
     $.ajax({
         url: '../garden/gardenProcess.php',
@@ -59,10 +67,23 @@ $(document).ready(function(){
                 });
 
                 return false;
-            } else {
+            } 
+            else {
                 $("textarea[name='gardenAddress']").val(null);
             }
         });
+
+        console.log("plot: " + $("input[name='plotNo']").val());
+
+        if($("textarea[name='gardenAddress']").val() != ""){
+            $address = $("textarea[name='gardenAddress']").val();
+            updateMarkerFromAddress($address);
+        }
+
+    });
+
+    $("textarea[name='gardenAddress']").change(function(){
+        console.log("garden CHANGE 2");
     });
 
     $("button[name='submit']").click(function(event){
@@ -76,5 +97,35 @@ $(document).ready(function(){
         }
 
     });
+
+    function updateMarkerFromAddress(address) {
+        console.log(address);
+        if (address.trim() !== "") {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var newLocation = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+                    updateMarker(newLocation);
+                } else {
+                    console.error('No results found for the given address.');
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+        else{
+            console.log("no");
+        }
+    }
+
+    function updateMarker(location) {
+        if (!marker) {
+            marker = L.marker(location).addTo(map);
+        } else {
+            marker.setLatLng(location);
+        }
+
+        map.setView(location, 14); // Set the map view to the marker location
+    }
 
 });
