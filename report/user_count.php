@@ -12,7 +12,7 @@ $userCounts = fetchUserCountsByRole();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Role Counts</title>
+    <title>User Role Report</title>
 
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
