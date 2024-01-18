@@ -15,6 +15,14 @@
                                 <li><a href="../user/admin/admin-custList.php">Customer</a></li>
                                 <li><a href="../user/admin/admin-add-staff.php">Staff</a></li>
                             </ul>
+                            </li>
+                            <li>
+                                <a href='#'><i class='fas fa-seedling'></i> Report</a>
+                                <ul class='innerlist'>
+                                    <li><a href='../report/user_count.php'><i class='fas fa-user'></i> Total Users</a></li>
+                                    <li><a href='../report/paid_amount.php'><i class='fas fa-dollar-sign'></i> Total Sales</a></li>
+                                    <li><a href='../report/booking_plot.php'><i class='fas fa-book'></i> Total Plots</a></li>
+                                </ul>
                             </li>';
                         }
                         else if($_SESSION['role'] == 2){
@@ -32,6 +40,13 @@
                                     <a href="">User</a>
                                     <ul class="innerlist">
                                     <li><a href="../user/staff/staff-custList.php">Customer</a></li>
+                                </ul>
+                                </li>
+                                 <li>
+                                <a href='#'><i class='fas fa-seedling'></i> Report</a>
+                                <ul class='innerlist'>
+                                    <li><a href='../report/payment_status.php'><i class='fas fa-dollar-sign'></i> Payment Status</a></li>
+                                    <li><a href='../report/approval_status.php'><i class='fas fa-check-circle'></i> Approval Status</a></li>
                                 </ul>
                                 </li>';
                         }
