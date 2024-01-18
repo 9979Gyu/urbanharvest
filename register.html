@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Urban Harvest-Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="../assets/img/logo.png"/>
+        <link rel="stylesheet" href="../css/authStyle.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="regisForm">
+            <form action="registerProcess.php" method="post">
+                <table>
+                    <tr>
+                        <th colspan="2"><p class="title">Registration</p></th>
+                    </tr>
+                    <tr>
+                        <td><label>First Name:</label></td>
+                        <td>
+                            <input type="text" name="fname" placeholder="Enter first name" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Last Name:</label></td>
+                        <td>
+                            <input type="text" name="lname" placeholder="Enter last name" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Contact Number:</label></td>
+                        <td>
+                            <input type="number" name="tel" placeholder="Enter contact number" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Home Address:</label></td>
+                        <td>
+                            <textarea name="address" cols="30" rows="5" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Email:</label></td>
+                        <td>
+                            <input type="email" name="email" placeholder="Enter email" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Password:</label></td>
+                        <td>
+                            <input type="password" name="password" placeholder="Enter password" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <center>
+                                <button type="submit" name="submit">Proceed</button>
+                                <button type="reset" name="reset">Clear</button>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+           
+            <p>Have an account? <a href="login.html">Sign-in here..</a></p>
+        </div>
+    </body>
+</html>
