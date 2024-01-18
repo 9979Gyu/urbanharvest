@@ -17,7 +17,7 @@
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include common CSS file -->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <?php include '../head.php'; ?> <!-- Include the header file -->
