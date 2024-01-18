@@ -17,11 +17,11 @@
                             </ul>
                             </li>
                             <li>
-                                <a href='#'><i class='fas fa-seedling'></i> Report</a>
-                                <ul class='innerlist'>
-                                    <li><a href='../report/user_count.php'><i class='fas fa-user'></i> Total Users</a></li>
-                                    <li><a href='../report/paid_amount.php'><i class='fas fa-dollar-sign'></i> Total Sales</a></li>
-                                    <li><a href='../report/booking_plot.php'><i class='fas fa-book'></i> Total Plots</a></li>
+                                <a href="#"><i class="fas fa-seedling"></i> Report</a>
+                                <ul class="innerlist">
+                                    <li><a href="../report/user_count.php"><i class="fas fa-user"></i> Total Users</a></li>
+                                    <li><a href=""../report/paid_amount.php"><i class="fas fa-dollar-sign"></i> Total Sales</a></li>
+                                    <li><a href="../report/booking_plot.php"><i class="fas fa-book"></i> Total Plots</a></li>
                                 </ul>
                             </li>';
                         }
@@ -43,10 +43,10 @@
                                 </ul>
                                 </li>
                                  <li>
-                                <a href='#'><i class='fas fa-seedling'></i> Report</a>
-                                <ul class='innerlist'>
-                                    <li><a href='../report/payment_status.php'><i class='fas fa-dollar-sign'></i> Payment Status</a></li>
-                                    <li><a href='../report/approval_status.php'><i class='fas fa-check-circle'></i> Approval Status</a></li>
+                                <a href="#"><i class="fas fa-seedling"></i> Report</a>
+                                <ul class="innerlist">
+                                    <li><a href="../report/payment_status.php"><i class="fas fa-dollar-sign"></i> Payment Status</a></li>
+                                    <li><a href="../report/approval_status.php"><i class="fas fa-check-circle"></i> Approval Status</a></li>
                                 </ul>
                                 </li>';
                         }
