@@ -150,13 +150,26 @@ input[type="radio"]:checked {
     background-color: rgb(234,180,100);
 }
 
-button {
+a.submit {
     margin: 5px;
     border: none;
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 18px;
     float: right;
+}
+
+button {
+    margin: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.btnGroup {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .submit {
@@ -169,6 +182,10 @@ button {
 
 .delete {
     background-color: rgb(255,88,76);
+}
+
+.back {
+    background-color: rgb(76, 148, 255);
 }
 
 .dash-title {
@@ -259,27 +276,28 @@ button {
     border-radius: 100%;
 }
 
-.chart-wrapper {
-    display: flex;
-    justify-content: center; /* Align items horizontally */
-    align-items: flex-start; /* Align items vertically */
+p.new{
+    padding-left: 50px;
+    color: red;
 }
 
-.table-container {
-    flex: 1;
-    margin: 10px; /* Add margin to create a gap between the table and the chart */
-}
+@media print {
+    body * {
+        visibility: hidden;
+    }
 
-.chart-container {
-    flex: 1;
-    margin: 10px; /* Adjust the margin as needed */
-}
+    #bookingRequest,
+    #bookingRequest * {
+        visibility: visible;
+    }
 
-.content-wrapper {
-    width: 50%; /* Adjust as needed */
-}
+    #bookingRequest {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 
-.chart-title {
-    text-align: center;
-    margin-bottom: 20px; /* Adjust as needed for the space between title and table */
+    .no-print {
+        display: none;
+    }
 }
