@@ -12,7 +12,7 @@ $paymentStatusCounts = fetchPaymentStatusCounts();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+    <title>Payment Status Report</title>
 
     <!-- Link to Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
