@@ -18,7 +18,7 @@ $userCounts = fetchUserCountsByRole();
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <!-- Link to your external CSS file -->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/style.css">
     
 </head>
 <body>
