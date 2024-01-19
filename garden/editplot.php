@@ -80,14 +80,38 @@
                                 <th>Status:</th>
                                 <td>
                                     <?php 
+                                        $sqldata = "SELECT bookApproval FROM booking WHERE plotID = '$getID' ";
+                                        $resultdata = mysqli_query($conn, $sqldata);
+                                        $getBookStat = null;
+
+                                        if ($resultdata) {
+                                            $rowdata = mysqli_fetch_assoc($resultdata);
+                                            $getBookStat = isset($rowdata['bookApproval']) ? $rowdata['bookApproval'] : null;
+                                        }
+
                                         if($getAvb == 2) {
-                                            echo '
-                                            <input type="radio" name="availability" id="availability" value="2" checked required/> Damaged
-                                            <input type="radio" name="availability" id="availability" value="1" />Fixed ';
+                                            if(isset($getBookStat) && $getBookStat == 1) {
+                                                echo '
+                                                <input type="radio" name="availability" id="availability" value="2" checked required/> Damaged
+                                                <input type="radio" name="availability" id="availability" value="0" />Fixed ';
+                                            } else {
+                                                echo '
+                                                <input type="radio" name="availability" id="availability" value="2" checked required/> Damaged
+                                                <input type="radio" name="availability" id="availability" value="1" />Fixed ';
+                                            }
                                         } else{
-                                            echo '
-                                            <input type="radio" name="availability" id="availability" value="2" required/> Damaged
-                                            <input type="radio" name="availability" id="availability" value="1" checked/>Fixed';
+                                            if(isset($getBookStat) && $getBookStat == 1) {
+                                                echo 'this should be booked';
+                                                
+                                                echo '
+                                                <input type="radio" name="availability" id="availability" value="2" required/> Damaged
+                                                <input type="radio" name="availability" id="availability" value="0" checked/>Fixed';
+                                            } else {
+                                                echo 'this should be available';
+                                                echo '
+                                                <input type="radio" name="availability" id="availability" value="2" required/> Damaged
+                                                <input type="radio" name="availability" id="availability" value="1" checked/>Fixed';
+                                            }
                                         }
                                     ?>
                                     
