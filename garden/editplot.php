@@ -101,13 +101,10 @@
                                             }
                                         } else{
                                             if(isset($getBookStat) && $getBookStat == 1) {
-                                                echo 'this should be booked';
-                                                
                                                 echo '
                                                 <input type="radio" name="availability" id="availability" value="2" required/> Damaged
                                                 <input type="radio" name="availability" id="availability" value="0" checked/>Fixed';
                                             } else {
-                                                echo 'this should be available';
                                                 echo '
                                                 <input type="radio" name="availability" id="availability" value="2" required/> Damaged
                                                 <input type="radio" name="availability" id="availability" value="1" checked/>Fixed';

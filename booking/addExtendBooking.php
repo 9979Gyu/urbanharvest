@@ -13,7 +13,7 @@
             if($uid != null){
 
                 // get the last booking date time
-                $sqlBookDt = "SELECT bookDateTime FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 ORDER BY bookDateTime DESC LIMIT 1";
+                $sqlBookDt = "SELECT bookDateTime FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 AND bookApproval = 1 ORDER BY bookDateTime DESC LIMIT 1";
                 $getDT = $conn->query($sqlBookDt);
                 $bookDT = $getDT->fetch_assoc();
                 $bookDT = $bookDT['bookDateTime'];
@@ -38,8 +38,8 @@
                     }
                 }
                 else{
-                    echo "Sorry you can only extend booking a week before booking expired!";
-                    echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
+                    echo "<script>alert('Sorry you can only extend booking a week before booking expired!');</script>";
+                    echo "<meta http-equiv=\"refresh\" content=\"2;URL=index.php\">";
                 }
                 
             }
