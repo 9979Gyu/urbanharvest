@@ -80,8 +80,8 @@ INSERT INTO ROLE (name, description, status) VALUES
 ("Customer", "People who use the system to book a plot", 1);
 
 INSERT INTO USER (firstName, lastName, email, contactNo, homeAddress, roleID, status, password) VALUES
-("Yu Qin", "Gui", "yuqin1161@gmail.com", "0129231224", "Taman Desa Idaman", 1, 1, "abc123"),
-("is me", "Customer", "customer@gmail.com", "0129232345", "Taman Desa Idaman", 3, 1, "abc123");
+("Yu Qin", "Gui", "yuqin1161@gmail.com", "0129231224", "Taman Desa Idaman", 1, 1, "$2y$10$jeEqDXuloNsvSCb.ecKBhew6IW02MSI/DQ1OZ1FtYL4yC7lsoZrnm"),
+("is me", "Customer", "customer@gmail.com", "0129232345", "Taman Desa Idaman", 3, 1, "$2y$10$dCVTF.1P/gUO.R6Pce5Fw.fNAHAh1lDm3WjJzEW5kvDStmK2S.cnS");
 
 INSERT INTO GARDEN (name, address, status) VALUES
 ('Taman Desa Idaman', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 1),
@@ -89,7 +89,9 @@ INSERT INTO GARDEN (name, address, status) VALUES
 ('Taman Daya', 'Taman Daya, 81100 Johor Bahru, Johor', 1);
 
 INSERT INTO PLOT (size, gardenID, status, availability) VALUES
-('12 x 30', 1, 1, 1);
+('12 x 30', 1, 1, 1),
+('12 x 30', 2, 1, 1),
+('12 x 30', 3, 1, 1);
 
 INSERT INTO QUESTION (sentence, status) VALUES
 ("What is your mother's maiden name?", 1),

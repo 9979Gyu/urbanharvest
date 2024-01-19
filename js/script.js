@@ -39,7 +39,6 @@ function getExpiredDate(nowDT, isExp, bookFor) {
 
 }
 
-
 function scrollToMessage() {
     $('html, body').animate({
         scrollTop: $(".message").offset().top

@@ -17,7 +17,7 @@
                             </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fas fa-seedling"></i> Report</a>
+                                <a href="#"> Report</a>
                                 <ul class="innerlist">
                                     <li><a href="../report/user_count.php"><i class="fas fa-user"></i> Total Users</a></li>
                                     <li><a href=""../report/paid_amount.php"><i class="fas fa-dollar-sign"></i> Total Sales</a></li>
@@ -43,7 +43,7 @@
                                 </ul>
                                 </li>
                                  <li>
-                                <a href="#"><i class="fas fa-seedling"></i> Report</a>
+                                <a href="#"> Report</a>
                                 <ul class="innerlist">
                                     <li><a href="../report/payment_status.php"><i class="fas fa-dollar-sign"></i> Payment Status</a></li>
                                     <li><a href="../report/approval_status.php"><i class="fas fa-check-circle"></i> Approval Status</a></li>
@@ -67,7 +67,6 @@
                         <ul class="innerlist">
                             <li><a href="../user/viewprofile.php"><i class="fas fa-user"></i> Profile</a></li>
                             <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                            <li></li>
                         </ul>
                     </li>
                 </ul>
