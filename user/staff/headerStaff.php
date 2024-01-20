@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>Admin Header</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/img/logo.png"/>
+    <link rel="icon" href="../../assets/img/logo.png"/>
+    <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -12,26 +13,35 @@
 </head>
 
 <?php
-    echo "
+    echo '
     <header>
     <nav>
     <ul>
-    <li><a href='../../analysis/dashboard.php'>Home</a></li>  
-                        <li>
-                            <a href='#'>Garden</a>
-                                <ul class='innerlist'>
-                                    <li><a href='../garden/addgarden.php'><i class='fas fa-plus'></i>Add Garden</a></li>
-                                    <li><a href='../garden/viewGarden.php'><i class='fas fa-edit'></i>Manage Garden</a></li>
-                                    <li><a href='../garden/addplot.html'><i class='fas fa-plus'></i>Add Plot</a></li>
-                                    
-                                </ul>
-                        </li>
-                        <li>
-                            <a href=''>User</a>
-                                <ul class='innerlist'>
-                                    <li><a href='staff-custList.php'>Customer</a></li>      
-                                </ul>
-                        </li>";
+    <ul>
+    <li><a href="../../analysis/dashboard.php">Home</a></li>
+    <li>
+    <a href="#">Garden</a>
+        <ul class="innerlist">
+            <li><a href="../../garden/viewGarden.php"><i class="fas fa-edit"></i> Manage Garden</a></li>
+            <li><a href="../../garden/addallplot.php"><i class="fas fa-plus"></i> Add Plot</a></li>
+        </ul>
+        </li>
+        <li>
+            <a href="../../booking/process.php">Booking</a>
+        </li>
+        <li>
+            <a href="">User</a>
+            <ul class="innerlist">
+            <li><a href="staff-add-cust.php">Customer</a></li>
+        </ul>
+        </li>
+         <li>
+        <a href="#"> Report</a>
+        <ul class="innerlist">
+            <li><a href="../../report/payment_status.php"><i class="fas fa-dollar-sign"></i> Payment Status</a></li>
+            <li><a href="../../report/approval_status.php"><i class="fas fa-check-circle"></i> Approval Status</a></li>
+        </ul>
+        </li>';
 ?>
 
         <li><a href='#'><?php echo $_SESSION['fname'] ?></a>
