@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
             labels: labels,
             datasets: [{
                 data: values,
-                backgroundColor: ['blue', 'orange', 'green'],
+                backgroundColor: ['blue', 'orange', 'green', 'red'],
                 borderWidth: 2,
-            }]
+            }]            
         },
         options: {
             responsive: true,
