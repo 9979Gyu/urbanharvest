@@ -42,12 +42,13 @@
 </head>
 <body>
     <div class="regisForm">
+    <button class="back" onclick="location.href='login.html'">Back</button>
+
         <form action="verifyAnswer.php" method="post">
         <?php
             // Retrieve the email parameter from the URL
             $email = isset($_GET['email']) ? $_GET['email'] : '';
         ?>
-        <button class="back" onclick="location.href='login.html'">Back</button>
             <input type='hidden' name='email' value='<?php echo $email; ?>'>
             <table>
                 <tr>
