@@ -1,8 +1,7 @@
 <?php
-// Include your database connection here (adjust the details accordingly)
+
 include_once '../connect.php';
 
-// Fetch the count of booking plots made by customers for each month
 function fetchBookingPlotsCountByMonth() {
     global $conn;
 
