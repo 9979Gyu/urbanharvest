@@ -19,7 +19,6 @@ include ('headerStaff.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -87,12 +86,15 @@ include ('headerStaff.php');
             $("#excell").click(function () {
                 downloadExcel();
             });
+
+            $("#pdf").click(function(){
+                downloadPDFWithBrowserPrint();
+            });
         });
 
             function downloadPDFWithBrowserPrint() {
                 window.print();
             }
-            document.querySelector('#pdf').addEventListener('click', downloadPDFWithBrowserPrint);
             
             function downloadExcel() {
                 var wb = XLSX.utils.book_new();
@@ -138,7 +140,7 @@ echo
         <!-- 'Download as pdf -->
         <button id='pdf' class='addstaff'>Download PDF</button>
         <!-- 'Download as excell -->
-        <button id='excell' class='addstaff'>Download Excell</button>
+        <button id='excell' class='addstaff'>Download Excel</button>
     </center>
 
     <table class='input-table'>

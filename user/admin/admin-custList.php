@@ -51,12 +51,14 @@ include('../../connect.php');
             $("#excell").click(function () {
                 downloadExcel();
             });
+
+            document.querySelector('#pdf').addEventListener('click', downloadPDFWithBrowserPrint);
         });
 
             function downloadPDFWithBrowserPrint() {
                 window.print();
             }
-            document.querySelector('#pdf').addEventListener('click', downloadPDFWithBrowserPrint);
+            
 
             function downloadExcel() {
                 var wb = XLSX.utils.book_new();
@@ -97,9 +99,9 @@ include('../../connect.php');
         <!-- 'Cancel button -->
         <button id='cancelBtn' class='delete-row'>Cancel</button><br>
         <!-- 'Download as pdf -->
-        <button id='btnExport' class='addstaff'>Download PDF</button>
+        <button id='pdf' class='addstaff'>Download PDF</button>
         <!-- 'Download as excell -->
-        <button id='excell' class='addstaff'>Download Excel</button>
+        <button id='excell' class='addstaff'>Download Excell</button>
         </center>
     </div>
 
@@ -108,7 +110,7 @@ include('../../connect.php');
     $result = $conn->query($sql);
 
     if($result->num_rows > 0) {
-        echo "<table id='savetable' class='display-table' border='1'>";
+        echo "<table id='cust-table' class='display-table' border='1'>";
         echo "<thead><tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
         <th>ACTION</th></tr>";
 

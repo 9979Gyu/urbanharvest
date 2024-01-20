@@ -90,12 +90,14 @@ include('headerAdmin.php');
             $("#excell").click(function () {
                 downloadExcel();
             });
+
+            document.querySelector('#pdf').addEventListener('click', downloadPDFWithBrowserPrint);
         });
 
             function downloadPDFWithBrowserPrint() {
                 window.print();
             }
-            document.querySelector('#pdf').addEventListener('click', downloadPDFWithBrowserPrint);
+            
             
             // function downloadPDF() {
             //     var doc = new jsPDF();
@@ -149,7 +151,7 @@ echo
         <!-- 'Download as pdf -->
         <button id='pdf' class='addstaff'>Download PDF</button>
         <!-- 'Download as excell -->
-        <button id='excell' class='addstaff'>Download Excell</button>
+        <button id='excell' class='addstaff'>Download Excel</button>
     </center>
 
     <table class='input-table'>

@@ -35,18 +35,13 @@
             $answerCheckSql = "SELECT * FROM answer WHERE userID = '" . $row['userID'] . "'";
             $answerCheckResult = $conn->query($answerCheckSql);
 
-            if($_SESSION['role'] == 3){
-                if ($answerCheckResult->num_rows > 0) {
-                    // Update booking extend record to current if the current extend is expired
-                    $result = updateBookingExtend($conn, $row["userID"]);
-                    echo "<meta http-equiv=\"refresh\" content=\"1;URL=../analysis/dashboard.php\">";
-                } else {
-                    echo "<script>alert('Set your security question and answer first');</script>";
-                    echo "<meta http-equiv=\"refresh\" content=\"0;URL=security.php?email=$email\">";
-                }
-            }
-            else{
+            if ($answerCheckResult->num_rows > 0) {
+                // Update booking extend record to current if the current extend is expired
+                $result = updateBookingExtend($conn, $row["userID"]);
                 echo "<meta http-equiv=\"refresh\" content=\"1;URL=../analysis/dashboard.php\">";
+            } else {
+                echo "<script>alert('Set your security question and answer first');</script>";
+                echo "<meta http-equiv=\"refresh\" content=\"0;URL=security.php?email=$email\">";
             }
         }
         else{
