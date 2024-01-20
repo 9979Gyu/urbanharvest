@@ -21,6 +21,7 @@ include ('../head.php');
         $(document).ready(function(){
             // Hide the input table initially
             $(".input-table").hide();
+            $("#addnew").hide();
 
             // Enable/disable buttons
             $("#newquestion").prop("disabled", false).css({"background-color": "#f28500", "color": "black"});
@@ -29,6 +30,8 @@ include ('../head.php');
             // "New Security Question" button click event
             $("#newquestion").click(function () {
                 // Show input table, hide display table
+                $("#addnew").show();
+                $("#initial").hide();
                 $(".input-table").show();
                 $(".display-table").hide();
 
@@ -40,6 +43,8 @@ include ('../head.php');
             // "Security Question List" button click event
             $("#questionlist").click(function () {
                 // Show display table, hide input table
+                $("#initial").show();
+                $("#addnew").hide();
                 $(".display-table").show();
                 $(".input-table").hide();
 
@@ -62,7 +67,8 @@ include ('../head.php');
 echo 
 "<body>
     <div class = 'registration-form'>
-    <br><center><h2>Security Question Management</h2><br>
+    <br><center><h2 id='initial'>Security Question Management</h2>
+    <h2 id='addnew'>New Question</h2><br>
         <!-- 'Add new question' button -->
         <button  id='newquestion' class='addstaff'>New Question</button>
         <!-- 'Security question List' button -->
