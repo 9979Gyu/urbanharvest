@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     // Include necessary PHP files and logic to fetch data
     include_once '../connect.php';
     include_once '../report/fetch_data/fetch_approval_status.php';
