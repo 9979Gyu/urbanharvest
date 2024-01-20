@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Your JavaScript code for approval_status.php
-    // Parse JSON data and create the donut chart
-    var chartData = approvalChartData; // Use the data from PHP
-
-    // Extract labels and values from the data
+    var chartData = approvalChartData;
     var labels = Object.keys(chartData);
     var values = Object.values(chartData);
 
