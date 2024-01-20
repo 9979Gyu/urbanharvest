@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Verify Cust Account</title>
+    <title>Forgot Password</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -38,22 +38,25 @@
             
         });
     </script>
+    
 </head>
 <body>
-    <?php include('../connect.php');?>
-    
     <div class="regisForm">
-        <form action="verifyAccount.php" method="post">
-        <input type='hidden' name='email' value='<?php echo $email; ?>'>
+        <form action="verifyAnswer.php" method="post">
+        <?php
+            // Retrieve the email parameter from the URL
+            $email = isset($_GET['email']) ? $_GET['email'] : '';
+        ?>
+            <input type='hidden' name='email' value='<?php echo $email; ?>'>
             <table>
                 <tr>
-                    <th colspan="2"><p class="title">Verify Account</p></th>
+                    <th colspan="2"><p class="title">Forgot Password</p></th>
                 </tr>
                 
                 <tr>
                     <td><label>Email</label></td>
                     <td>
-                        <input id="inputEmail" type="email" name="email"  value="<?php echo $_SESSION['email']; ?>"/>
+                        <input id="inputEmail" type="email" name="email" value="<?php echo $email; ?>"/>
                     </td>
                 </tr>
                 <tr>

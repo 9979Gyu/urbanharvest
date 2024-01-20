@@ -13,7 +13,7 @@
 
             $_SESSION['email'] = $result['email'];
             $_SESSION['password'] = $result['password'];
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=security.php\">";
+            echo "<meta http-equiv=\"refresh\" content=\"1;URL=security.php\">";
         }
         else{
             // Handle the error

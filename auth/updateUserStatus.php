@@ -29,10 +29,10 @@ if (isset($_SESSION['email'])) {
                               VALUES ('$ans2', 1, (SELECT questionID FROM question WHERE sentence = '$question2'), $userID)";
 
             if ($conn->query($insertAnswer1) === TRUE && $conn->query($insertAnswer2) === TRUE) {
-                echo "User status updated and answers inserted successfully!";
-                echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
+                echo "<meta http-equiv=\"refresh\" content=\"1;URL=verify.php?email=$email\">";
+
             } else {
-                echo "Error inserting answers: " . $conn->error;
+                echo "Failed to access" . $conn->error;
                 echo "<meta http-equiv=\"refresh\" content=\"3;URL=security.php\">";
             }
         } else {

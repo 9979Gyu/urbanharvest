@@ -2,6 +2,7 @@
 session_start();
 
 include ('../connect.php');
+include ('../head.php');
 ?>
 
 <!DOCTYPE html>
@@ -56,30 +57,6 @@ include ('../connect.php');
 
     </script>
 </head>
-
-<header>
-<nav>
-    <ul>
-        <li><a href='../analysis/dashboard.php'>Home</a></li>
-            
-                <li><a href='manage-security.php'>Security</a></li>
-                    <li><a href=''>User</a>
-                        <ul class='innerlist'>
-                            <li><a href='../user/admin/admin-custList.php'>Customer</a></li>
-                            <li><a href='../user/admin/admin-add-staff.php'>Staff</a></li>
-                        </ul>
-                    </li>
-            
-        <li><a href='#'><?php echo $_SESSION['fname'] ?></a>
-            <ul class='innerlist'>
-                <li><a href='../user/viewprofile.php'><i class='fas fa-user'></i> Profile</a></li>
-                <li><a href='../auth/logout.php'><i class='fas fa-sign-out-alt'></i> Logout</a></li>
-                <li></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
-</header>
 
 <?php
 echo 
