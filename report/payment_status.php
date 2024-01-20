@@ -42,7 +42,7 @@
                 <tbody>
                     <?php
                         // Define the display order
-                        $displayOrder = ['PAID', 'PENDING', 'CANCEL', 'NOT PAID'];
+                        $displayOrder = ['PAID', 'PENDING', 'CANCEL'];
 
                         // Display rows in the defined order
                         foreach ($displayOrder as $paymentStatus):
