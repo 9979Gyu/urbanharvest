@@ -1,10 +1,6 @@
-// Get the data from PHP
 var paymentStatusCounts = paymentStatusCountsPHP;
-
-// Get the canvas element
 var canvas = document.getElementById('pieChart');
 
-// Create a pie chart
 var pieChart = new Chart(canvas, {
     type: 'pie',
     data: {
