@@ -17,7 +17,13 @@ session_start();
         $(document).ready(function(){
             // Hide the cancel button initially
             $("#cancelButton").hide();
-           $("#updateButton").hide();
+            $("#updateButton").hide();
+            $("#cancelChange").hide();
+            $("#updateChange").hide();
+            $("#newpasslabel").parent().hide();
+            $("#confirmpasslabel").parent().hide()
+            $("#newpassinput").parent().hide();
+            $("#confirmpassinput").parent().hide()
 
             // Disable the input fields initially
             $("input").prop("disabled", true);
@@ -26,7 +32,9 @@ session_start();
             $("#editButton").click(function() {
                 $("input").prop("disabled", false);
                 $(this).hide();
-                
+                $("#passinput").prop("disabled", true);
+                $("#newpassinput").prop("disabled", true);
+                $("#confirmpassinput").prop("disabled", true);
                 $("#updateButton").show();
                 $("#cancelButton").show();
             });
@@ -38,6 +46,41 @@ session_start();
                 $("#updateButton").hide();
                 $("input").prop("disabled", true);
             });
+
+            // Show password fields when "Change Password" is clicked
+            $("#changepass").click(function() {
+                $("#passinput").hide();
+                $("#password").hide();
+                $("#changepass").hide();
+                $("#cancelChange").show();
+                $("#updateChange").show();
+                $("#newpasslabel").parent().show();
+                $("#confirmpasslabel").parent().show()
+                $("#newpassinput").parent().show();
+                $("#confirmpassinput").parent().show()
+                $("#passinput").prop("disabled", false);
+                $("#newpassinput").prop("disabled", false);
+                $("#confirmpassinput").prop("disabled", false);
+            });
+
+            // Hide password fields when "Cancel" is clicked during password change
+            $("#cancelChange").click(function() {
+                $("#passinput").show();
+                $("#password").show();
+                $("#passinput").val($("#oldpass").val());
+                $("#newpasslabel").parent().hide();
+                $("#confirmpasslabel").parent().hide();
+                $(this).hide();
+                $("#changepass").show();
+                $("#updateChange").hide();
+                $("#newpassinput").parent().hide();
+                $("#confirmpassinput").parent().hide()
+                $("#passinput").prop("disabled", true);
+                $("#newpassinput").prop("disabled", true);
+                $("#confirmpassinput").prop("disabled", true);
+            });
+            
+            
         });
     </script>
 </head>
@@ -48,9 +91,8 @@ include ('../connect.php');
 include ('../head.php');
 
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
 
-$sql = "SELECT * FROM user where email= '$email' and password = '$password'";
+$sql = "SELECT * FROM user where email= '$email'";
 
 $result = $conn->query($sql);
 
@@ -85,10 +127,6 @@ if ($result->num_rows > 0) {
                 <th><label for='homeAddress'>Address</label> </th> 
                 <td><input type='text' id='homeAddress' name='homeAddress' value='" . $row['homeAddress'] . "' minlength='10' required></td>
             </tr>
-            <tr>
-            <th><label for='password'>Password</label></th> 
-            <td><input type='password' id='password' name='password' value='" . $row['password'] . "' minlength='6' required></td>
-            </tr>
             
             <tr>
                 <br>
@@ -102,8 +140,57 @@ if ($result->num_rows > 0) {
             </tr>
         </table>
         </form>
-        </div>
-        </body>";
+    </div>";
+
+} else {
+    echo "0 results";
+}
+
+?>
+
+<?php
+
+$sql = "SELECT * FROM user where email= '$email'";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    //output data of each row
+    $row = $result->fetch_assoc();
+    $id = $row['userID'];
+
+    echo "
+        <div class='registration-form'>
+    
+        <form method='post' action='updatePass.php'>
+        <input type='hidden' name='id' value='$id'>
+        <input id='oldpass' type='hidden' name='pass' value='" . $row['password'] . "'>
+        <table class='input-table'>
+        <tr>
+            <th><label id='password'>Password</label></th> 
+            <td><input type='password' id='passinput' name='password' value='" . $row['password'] . "' minlength='6' required></td>
+        </tr>
+        <tr>
+            <th><label id='newpasslabel'>New Password</label></th> 
+            <td><input type='password' id='newpassinput' name='newpass' minlength='6' required></td>
+        </tr>
+        <tr>
+            <th><label id='confirmpasslabel'>Confirm Password</label></th> 
+            <td><input type='password' id='confirmpassinput' name='confirmpass' minlength='6' required></td>
+        </tr>
+        <tr>
+            <td>
+                <center>
+                <button id='changepass' type='button'>Change Password</button>
+                <button class='delete-row' id='cancelChange' type='button'>Cancel</button>
+                <button class='edit-row' id='updateChange' type='submit' name='updatechange' value='UPDATE'>Update</button>     
+                </center>
+            </td>  
+        </tr>
+    </table>
+    </form>
+    </div>
+</body>";
 
 } else {
     echo "0 results";
