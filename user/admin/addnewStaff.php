@@ -7,12 +7,15 @@ $email=$_POST['email'];
 $contactNo=$_POST['contactNo'];
 $address=$_POST['homeAddress'];
 $password=$_POST['password'];
+$confirmPassword = $_POST['confirmpassword'];
+
 
 	if(isset($firstName) && isset($lastName) && isset($contactNo) && 
-        isset($address) && isset($email) && isset($password)){
+        isset($address) && isset($email) && isset($password) && isset($confirmPassword)){
 			$role=2;
 
-			$checkEmail = "SELECT * FROM user WHERE email = '" . $email . "'";
+			if ($password === $confirmPassword) {
+				$checkEmail = "SELECT * FROM user WHERE email = '" . $email . "'";
 				$checkTel = "SELECT * FROM user WHERE contactNo = '" . $contactNo . "'";
 
     			$result1 = $conn->query($checkEmail);
@@ -43,7 +46,11 @@ $password=$_POST['password'];
 						echo "<script>alert('Phone number already exist'); window.location.href='admin-add-staff.php';</script>";
 					}
 				}
+			} else {
+				echo "Passwords do not match!";
+				echo "<meta http-equiv=\"refresh\" content=\"2;URL=admin-add-staff.php\">";
 			}
+		}
 		else{
 			echo "Fill all the field. <br>" . $conn->error;
 		}
