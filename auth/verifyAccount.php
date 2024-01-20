@@ -23,11 +23,12 @@ if (isset($_SESSION['email'])) {
         $checkResult = $conn->query($checkAnswersQuery);
 
         if ($checkResult->num_rows == 1) {
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=changePass.php\">";
+            echo "Verify account successfully!.";
+            echo "<meta http-equiv=\"refresh\" content=\"2;URL=login.html\">";
 
         } else {
             echo "Answers do not match existing records.";
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=security.php\">";
+            echo "<meta http-equiv=\"refresh\" content=\"3;URL=verify.php\">";
         }
 
     } else {
