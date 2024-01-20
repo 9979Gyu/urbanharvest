@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+
         <script type="text/javascript" src="../js/script.js"></script>
         <script type="text/javascript" src="../js/exportScript.js"></script>
 
@@ -118,9 +120,11 @@
         <section class="wrapper">
             <h1 class="title">Booking Details History</h1>
             <article class="mainContent">
-                <div>
+                <div class="btnGroup">
                     <button id="btnExport" class="normal" type="button">Print PDF</button>
+                    <button id="excelBtn" class="submit" type="button">Export Excel</button>
                 </div>
+                <br>
                 <table id="bookingRequest" border="border-collapse">
                     <thead>
                         <tr>
