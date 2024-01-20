@@ -1,13 +1,11 @@
 <?php
     session_start();
-    
-    // Include necessary PHP files and logic to fetch data
+
     include_once '../connect.php';
     include_once '../report/fetch_data/fetch_payment_status.php';
-    
-    // Fetch counts of bookings based on status
+   
     $paymentStatusCounts = fetchPaymentStatusCounts();
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,19 +15,14 @@
     <link rel="icon" href="../assets/img/logo.png"/>
     <title>Payment Status Report</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-    <!-- Link to Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
+    
 <body>
-    <?php include '../head.php'; ?> <!-- Include the header file -->
+    <?php include '../head.php'; ?> 
 
-    <!-- Display payment status counts -->
     <div class="chart-wrapper">
-        <!-- Table Container -->
         <div class="table-container">
             <br><h2 class="chart-title">Payment Status Counts</h2><br>
             <table>
@@ -57,20 +50,16 @@
             </table>
         </div>
 
-        <!-- Chart Container -->
         <div class="chart-container">
             <canvas id="pieChart" width="250" height="350"></canvas>
         </div>
     </div>
 
-    <!-- Pass PHP data to JavaScript -->
     <script>
         var paymentStatusCountsPHP = <?php echo json_encode($paymentStatusCounts); ?>;
     </script>
 
-    <!-- Include the external JavaScript file -->
     <script src="../js/pie.js"></script>
     
-    <?php include '../foot.php'; ?> <!-- Include the footer file -->
-</body>
+    <?php include '../foot.php'; ?> 
 </html>
