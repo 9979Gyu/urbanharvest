@@ -8,9 +8,10 @@ function fetchApprovalCounts() {
 
     $sql = "SELECT
                 CASE 
+                    WHEN `bookApproval` = 0 THEN 'PENDING'
                     WHEN `bookApproval` = 1 THEN 'APPROVED'
-                    WHEN `bookApproval` = 2 THEN 'PENDING'
-                    ELSE 'DECLINED'
+                    WHEN `bookApproval` = 2 THEN 'DECLINED'
+                    ELSE 'CANCELLED'
                 END AS `bookApprovalText`,
                 COUNT(*) AS COUNT
             FROM `booking`
