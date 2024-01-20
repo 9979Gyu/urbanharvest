@@ -9,6 +9,32 @@
         <link rel="stylesheet" href="../css/authStyle.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            // Add this script to get the email value and append it to the forgot password link
+            $(document).ready(function(){
+                // Initially hide the forgot password link
+                $("#forgotPasswordLink").hide();
+
+                // Check email input on keyup
+                $("input[name='email']").on('keyup', function(){
+                    var emailValue = $(this).val();
+                    
+                    // Check if the email is not null and is in the right format
+                    if(emailValue && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)){
+                        // Show the forgot password link
+                        $("#forgotPasswordLink").show();
+                    } else {
+                        // Hide the forgot password link
+                        $("#forgotPasswordLink").hide();
+                    }
+                });
+                
+                $("#forgotPasswordLink").click(function(){
+                    var emailValue = $("input[name='email']").val();
+                    $(this).attr("href", "forgotPass.php?email=" + encodeURIComponent(emailValue));
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -30,7 +56,7 @@
                     </p>
                 </center>
             </form>
-            <p><a href="verify.php">forgot password ?</a></p>
+            <p><a href="forgotPass.php?email=" id="forgotPasswordLink">forgot password ?</a></p>
             <p>New user? <a href="register.html">Sign-up now..</a></p>
         </div>
     </body>

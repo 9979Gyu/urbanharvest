@@ -1,42 +1,3 @@
-<?php
-session_start();
-require("../connect.php");
-
-if (isset($_POST['submit'])) {
-    // Retrieve user information from the session
-    $email = $_SESSION['email'];
-
-    // Retrieve new password and confirm password from the form
-    $newPassword = $_POST['password'];
-    $confirmPassword = $_POST['confirmpassword'];
-
-    // Check if new password matches the confirm password
-    if ($newPassword === $confirmPassword) {
-        // Hash the new password before storing it in the database
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-        // Update the password in the user table
-        $updatePasswordQuery = "UPDATE user SET password = '$hashedPassword' WHERE email = '$email'";
-
-        if ($conn->query($updatePasswordQuery) === TRUE) {
-            echo "Password updated successfully!";
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=login.html\">";
-        } else {
-            echo "Error updating password: " . $conn->error;
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=changePass.php\">";
-        }
-    } else {
-        echo "Passwords do not match!";
-        echo "<meta http-equiv=\"refresh\" content=\"3;URL=changePass.php\">";
-    }
-} else {
-    echo "Invalid request!";
-    echo "<meta http-equiv=\"refresh\" content=\"3;URL=changePass.php\">";
-}
-
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +12,12 @@ $conn->close();
     </head>
     <body>
         <div class="regisForm">
-            <form action="changePass.php" method="post">
+            <form action="changePassProcess.php" method="post">
+                <?php
+                    // Retrieve the email parameter from the URL
+                    $email = isset($_GET['email']) ? $_GET['email'] : '';
+                ?>
+            <input type='hidden' name='email' value='<?php echo $email; ?>'>
                 <table>
                     <tr>
                         <th colspan="2"><p class="title">Change Password</p></th>
