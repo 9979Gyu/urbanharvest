@@ -1,8 +1,7 @@
 <?php
-// Include your database connection here (adjust the details accordingly)
+
 include_once '../connect.php';
 
-// Change fetchApprovalCounts() in fetch_approval_status.php
 function fetchApprovalCounts() {
     global $conn;
 
