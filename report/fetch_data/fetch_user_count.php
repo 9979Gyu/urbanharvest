@@ -1,8 +1,7 @@
 <?php
-// Include your database connection here (adjust the details accordingly)
+
 include_once '../connect.php';
 
-// Function to fetch user counts by role, excluding roleID = 1
 function fetchUserCountsByRole() {
     global $conn;
 
