@@ -1,9 +1,7 @@
 <?php 
 
-    // session_start();
-
-    // Function to insert user data to DB
-    function saveUserData($conn){
+// Function to insert user data to DB
+function saveUserData($conn){
 
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
@@ -22,6 +20,14 @@
                 $role = $_POST['role'];
             }
 
+            $checkEmail = "SELECT * FROM user WHERE email = '" . $email . "'";
+			$checkTel = "SELECT * FROM user WHERE contactNo = '" . $tel . "'";
+
+			$result1 = $conn->query($checkEmail);
+			$result2 = $conn->query($checkTel);
+
+            if($result1->num_rows == 0 && $result2->num_rows == 0){
+					
             // Password hashing
             $hashPwd = password_hash($password, PASSWORD_BCRYPT);
 
@@ -41,10 +47,18 @@
             }
         }
         else{
-            return false;
+            if($result1->num_rows > 0){
+                echo "<script>alert('User already exist'); window.location.href='register.html';</script>";
+            }else if($result2->num_rows > 0){
+                echo "<script>alert('Phone number already exist'); window.location.href='register.html';</script>";
+            }
         }
-
     }
+    else{
+        return false;
+    }
+
+}
 
     // Function to retrieve user data from DB based on email and status
     function getUserByEmail($conn, $email, $status){
