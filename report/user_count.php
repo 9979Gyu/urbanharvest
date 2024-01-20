@@ -14,10 +14,12 @@ $userCounts = fetchUserCountsByRole();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/img/logo.png"/>
     <title>User Role Report</title>
 
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="../css/style.css">

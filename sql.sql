@@ -94,7 +94,7 @@ INSERT INTO PLOT (size, gardenID, status, availability) VALUES
 ('12 x 30', 3, 1, 1);
 
 INSERT INTO QUESTION (sentence, status) VALUES
-("What is your mother's maiden name?", 1),
+("What high school did you attend?", 1),
 ("In which city were you born?", 1),
 ("What is the name of your first pet?", 1),
 ("What is your favorite movie?", 1),
