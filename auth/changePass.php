@@ -11,6 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
+    <button type="submit" onclick="location.href='login.html'">Back</button>
+
         <div class="regisForm">
             <form action="changePassProcess.php" method="post">
                 <?php
