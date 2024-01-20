@@ -1,12 +1,10 @@
 <?php
-session_start();
+    session_start();
 
-// Include necessary PHP files and logic to fetch data
-include_once '../connect.php';
-include_once '../report/fetch_data/fetch_user_count.php';
+    include_once '../connect.php';
+    include_once '../report/fetch_data/fetch_user_count.php';
 
-// Fetch user counts by role
-$userCounts = fetchUserCountsByRole();
+    $userCounts = fetchUserCountsByRole();
 ?>
 
 <!DOCTYPE html>
@@ -16,21 +14,15 @@ $userCounts = fetchUserCountsByRole();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/img/logo.png"/>
     <title>User Role Report</title>
-
-    <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-    <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="../css/style.css">
-    
 </head>
+    
 <body>
-    <?php include '../head.php'; ?> <!-- Include the header file -->
+    <?php include '../head.php'; ?> 
 
-    <!-- Flex container for both the table and the chart -->
     <div class="chart-wrapper">
-        <!-- Table container -->
         <div class="table-container">
             <br><h2 class="chart-title">Total of Users</h2><br>
             <table>
@@ -51,20 +43,17 @@ $userCounts = fetchUserCountsByRole();
             </table>
         </div>
    
-    <!-- Chart container -->
     <div class="chart-container">
         <canvas id="userRoleChart" width="500" height="350"></canvas>
     </div>
 </div>
 
-<!-- Pass PHP data to JavaScript -->
 <script>
     var userCountsData = <?php echo json_encode($userCounts); ?>;
 </script>
 
-<!-- Include the external JavaScript file -->
 <script src="../js/h-bar.js"></script>
 
-<?php include '../foot.php'; ?> <!-- Include the footer file -->
+<?php include '../foot.php'; ?>
 </body>
 </html>
