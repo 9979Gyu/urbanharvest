@@ -20,7 +20,7 @@
                                 <a href="#"> Report</a>
                                 <ul class="innerlist">
                                     <li><a href="../report/user_count.php"><i class="fas fa-user"></i> Total Users</a></li>
-                                    <li><a href=""../report/paid_amount.php"><i class="fas fa-dollar-sign"></i> Total Sales</a></li>
+                                    <li><a href="../report/paid_amount.php"><i class="fas fa-dollar-sign"></i> Total Sales</a></li>
                                     <li><a href="../report/booking_plot.php"><i class="fas fa-book"></i> Total Plots</a></li>
                                 </ul>
                             </li>';
