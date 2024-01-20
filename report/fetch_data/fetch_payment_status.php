@@ -1,8 +1,7 @@
 <?php
-// Include your database connection here (adjust the details accordingly)
+
 include_once '../connect.php';
 
-// Fetch counts of bookings based on payment status
 function fetchPaymentStatusCounts() {
     global $conn;
 
