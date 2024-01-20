@@ -1,11 +1,13 @@
 <?php
-// Include necessary PHP files and logic to fetch data
-include_once '../connect.php';
-include_once '../report/fetch_data/fetch_payment_status.php';
-
-// Fetch counts of bookings based on status
-$paymentStatusCounts = fetchPaymentStatusCounts();
-?>
+    session_start();
+    
+    // Include necessary PHP files and logic to fetch data
+    include_once '../connect.php';
+    include_once '../report/fetch_data/fetch_payment_status.php';
+    
+    // Fetch counts of bookings based on status
+    $paymentStatusCounts = fetchPaymentStatusCounts();
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
