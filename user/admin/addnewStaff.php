@@ -6,19 +6,49 @@ $lastName=$_POST['lastName'];
 $email=$_POST['email'];
 $contactNo=$_POST['contactNo'];
 $address=$_POST['homeAddress'];
-$status=1;
 $password=$_POST['password'];
-$roleID=2;
 
+	if(isset($firstName) && isset($lastName) && isset($contactNo) && 
+        isset($address) && isset($email) && isset($password)){
+			$role=2;
 
-$sql = "INSERT INTO user (firstName, lastName, email, contactNo, homeAddress, status, password, roleID) VALUES ('$firstName', '$lastName', '$email', '$contactNo', '$address','$status', '$password', $roleID)" or die ("Error inserting data into table");
+			$checkEmail = "SELECT * FROM user WHERE email = '" . $email . "'";
+				$checkTel = "SELECT * FROM user WHERE contactNo = '" . $contactNo . "'";
 
-if ($conn->query($sql) === TRUE) {
-	echo "<script>alert('New record created successfully!'); window.location.href='admin-add-staff.php';</script>";
-} else {
-	echo "Error" . $sql . "<br>" . $conn->error;
-}
-//Closes specified connection
-$conn->close();
+    			$result1 = $conn->query($checkEmail);
+				$result2 = $conn->query($checkTel);
+
+				if($result1->num_rows == 0 && $result2->num_rows == 0){
+				
+					// Password hashing
+					$hashPwd = password_hash($password, PASSWORD_BCRYPT);
+		
+					$insertUser = "INSERT INTO user (firstName, lastName, email, contactNo, 
+						homeAddress, status, password, roleID) VALUES ('" . $firstName . 
+						"', '" . $lastName . "', '" . $email . "', '" . $contactNo . "', '" . 
+						$address . "', '" . 1 . "', '" . $hashPwd . "', '" . $role . "')" or
+						die("Error inserting new record");
+		
+					if($conn->query($insertUser) === TRUE){
+						echo "<script>alert('New record created successfully!'); window.location.href='admin-add-staff.php';</script>";
+					}
+					else{
+						echo "Failed to add staff" . $sql . "<br>" . $conn->error;
+					}
+				}
+				else{
+					if($result1->num_rows > 0){
+						echo "<script>alert('User already exist'); window.location.href='admin-add-staff.php';</script>";
+					}else if($result2->num_rows > 0){
+						echo "<script>alert('Phone number already exist'); window.location.href='admin-add-staff.php';</script>";
+					}
+				}
+			}
+		else{
+			echo "Fill all the field. <br>" . $conn->error;
+		}
+
+	//Closes specified connection
+	$conn->close();
 
 ?>
