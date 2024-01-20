@@ -109,6 +109,7 @@ $(document).ready(function () {
                 // Handle the case where there is no booking data
                 $(".mainContent").hide();
                 $(".message").html("No booking record exists. You can book <a href='add.php'>here</a>.").css("color", "Red");
+                $("#textToIndex").html("No booking record exists. You can book <a href='index.php'>here</a>.").css("color", "Red");
             }
 
             if($("span:eq(0)").html().toUpperCase() === "DECLINED"){

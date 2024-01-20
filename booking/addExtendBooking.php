@@ -13,9 +13,10 @@
             if($uid != null){
 
                 // get the last booking date time
-                $sqlBookDt = "SELECT bookDateTime FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 AND bookApproval = 1 ORDER BY bookDateTime DESC LIMIT 1";
+                $sqlBookDt = "SELECT bookDateTime, bookYear FROM booking WHERE userID = '" . $uid . "' AND isExtend = 0 AND bookApproval = 1 ORDER BY bookDateTime DESC LIMIT 1";
                 $getDT = $conn->query($sqlBookDt);
                 $bookDT = $getDT->fetch_assoc();
+                $useYear = $bookDT['bookYear'];
                 $bookDT = $bookDT['bookDateTime'];
                 $now = getCurrentDTByTimezone();
 
@@ -23,10 +24,12 @@
                 $bookDT = strtotime($bookDT);
                 $now = strtotime($now);
 
+                $target = (365 * $useYear) - 8;
+
                 // Calculates the difference between DateTime objects
                 $diff = ($now - $bookDT)/60/60/24;
 
-                if($diff >= 7){
+                if($diff >= $target){
                     $result = addExtendBooking($conn, $uid, 1); 
                     
                     if($result){

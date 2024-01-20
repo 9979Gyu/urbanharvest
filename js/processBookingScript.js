@@ -145,8 +145,9 @@ $(document).ready(function(){
                     bid: $(this).closest('tr').find('.indicator').val(),
                     bookApproval: 2,
                 },
-                success: function(data) {
-                    alert(data);
+                success: function(response) {
+                    alert(response.success);
+                    window.location.href = "process.php";
                 },
                 error: function(data){
                     alert(data);

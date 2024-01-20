@@ -5,10 +5,34 @@
         return date("Y-m-d H:i:s");
     }
 
+    
+    function updatePlotByBooking($conn, $bid){
+        
+        $getPlot = "SELECT plotID, isExtend FROM booking WHERE bookingID = '" . $bid . "'";
+        $getPlotID = $conn->query($getPlot);
+        $getPlotID = $getPlotID->fetch_assoc();
+        $result = false;
+        if($getPlotID["isExtend"] == 0){
+            $updatePlot = "UPDATE plot SET availability = 1 WHERE plotID = '" . $getPlotID["plotID"] . "'";
+
+            $result = $conn->query($updatePlot);
+        }
+
+        return $result;
+        
+    }
+
     function updateApproval($conn, $bid, $bookApproval){
         $updateBookDT = getCurrentDTByTimezone();
         $sql = "UPDATE booking SET bookApproval = '" . $bookApproval . "', bookDateTime = '" . $updateBookDT . "' WHERE bookingID = '" . $bid . "'";
         $result = $conn->query($sql);
+
+        if($result){
+            if($bookApproval == 2){
+                $result = updatePlotByBooking($conn, $bid);
+            }
+        }
+
         return $result;
     }
 
@@ -205,19 +229,13 @@
     // Cancel booking
     function updateBookingStatus($conn, $bid, $extend){
 
-        $getPlot = "SELECT plotID FROM booking WHERE bookingID = '" . $bid . "'";
-        $getPlotID = $conn->query($getPlot);
-        $getPlotID = $getPlotID->fetch_assoc();
-
         $sql = "UPDATE booking SET bookApproval = 3, status = 0 WHERE bookingID = '" . $bid . "'";
 
         $result = $conn->query($sql);
 
         if($result){
             if($extend == 0){
-                $updatePlot = "UPDATE plot SET availability = 1 WHERE plotID = '" . $getPlotID["plotID"] . "'";
-
-                $result = $conn->query($updatePlot);
+                $result = updatePlotByBooking($conn, $bid);
             }   
         }
 

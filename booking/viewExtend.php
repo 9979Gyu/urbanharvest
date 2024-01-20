@@ -18,10 +18,10 @@
         <section class="wrapper">
             <h1 class="title">Extend Booking Details</h1>
             <article>
-                <p class="message"></p>
+                <p id="textToIndex" class="message"></p>
             </article>
             <article class="mainContent">
-                <form id="bookPlot">
+                <form id="bookPlot" action="viewExtend.php" method="post">
                     <input type="text" name="isExtend" value="1" hidden/>
                     <input type="text" name="status" value="1" hidden/>
                     <input type="text" name="bookID" hidden/>
