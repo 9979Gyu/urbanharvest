@@ -62,7 +62,7 @@
                         }
                     ?>
                     
-                    <li>
+                    <li class="is-right">
                         <a href="#"><?php echo $_SESSION['fname'] ?></a>
                         <ul class="innerlist">
                             <li><a href="../user/viewprofile.php"><i class="fas fa-user"></i> Profile</a></li>

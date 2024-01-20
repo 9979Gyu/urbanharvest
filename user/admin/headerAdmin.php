@@ -25,7 +25,7 @@
                             <li><a href='admin-add-staff.php'>Staff</a></li>
                         </ul>
                     </li>
-                    <li><a href='#'><i class='fas fa-seedling'></i> Report</a>
+                    <li><a href='#'> Report</a>
                         <ul class='innerlist'>
                             <li><a href='../../report/user_count.php'><i class='fas fa-user'></i> Total Users</a></li>
                             <li><a href='../../report/paid_amount.php'><i class='fas fa-dollar-sign'></i> Total Sales</a></li>
@@ -34,7 +34,7 @@
                     </li>";
 ?>
 
-        <li><a href='#'><?php echo $_SESSION['fname'] ?></a>
+        <li class="is-right"><a href='#'><?php echo $_SESSION['fname'] ?></a>
 <?php
         echo"
             <ul class='innerlist'>

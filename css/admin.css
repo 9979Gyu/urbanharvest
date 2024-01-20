@@ -339,3 +339,28 @@ button {
     width: 15%;
     border-radius: 100%;
 }
+
+.to-right{
+    float: right;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #savetable,
+    #savetable * {
+        visibility: visible;
+    }
+
+    #savetable {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .no-print {
+        display: none;
+    }
+}

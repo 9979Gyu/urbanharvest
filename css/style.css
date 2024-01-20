@@ -281,6 +281,10 @@ p.new{
     color: red;
 }
 
+.to-right{
+    float: right;
+}
+
 @media print {
     body * {
         visibility: hidden;
