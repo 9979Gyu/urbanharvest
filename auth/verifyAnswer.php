@@ -23,11 +23,11 @@ if (isset($_POST['email'])) {
         $checkResult = $conn->query($checkAnswersQuery);
 
         if ($checkResult->num_rows == 1) {
-            echo "<meta http-equiv=\"refresh\" content=\"0;URL=changePass.php?email=$email\">";
+            echo "<meta http-equiv=\"refresh\" content=\"2;URL=changePass.php?email=$email\">";
 
         } else {
             echo "Question or answers of do not match existing records.";
-            echo "<meta http-equiv=\"refresh\" content=\"3;URL=forgotPass.php?email=$email\">";
+            echo "<meta http-equiv=\"refresh\" content=\"2;URL=forgotPass.php?email=$email\">";
         }
 
     } else {
