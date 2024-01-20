@@ -8,10 +8,9 @@ function fetchPaymentStatusCounts() {
 
     $sql = "SELECT 
                 CASE 
+                    WHEN paymentStatus = 0 THEN 'PENDING'
                     WHEN paymentStatus = 1 THEN 'PAID'
-                    WHEN paymentStatus = 2 THEN 'PENDING'
-                    WHEN paymentStatus = 3 THEN 'CANCEL'
-                    ELSE 'NOT PAID'
+                    ELSE 'CANCELLED'
                 END AS paymentStatusText,
                 COUNT(*) AS count
             FROM booking
