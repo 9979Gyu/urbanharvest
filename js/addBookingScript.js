@@ -35,14 +35,12 @@ $(document).ready(function(){
             data: { gardenID: gardenID },
             dataType: 'json',
             success: function(data) {
-                console.log(data.plotID);
                 $retrievedPlot = data;
 
                 // Call the callback function with the retrieved data
                 callback(data);
             },
             error: function(error) {
-                console.log('Error fetching plot data:', error);
                 callback(false); // Pass false to the callback to indicate an error
             }
         });
@@ -73,17 +71,11 @@ $(document).ready(function(){
             }
         });
 
-        console.log("plot: " + $("input[name='plotNo']").val());
-
         if($("textarea[name='gardenAddress']").val() != ""){
             $address = $("textarea[name='gardenAddress']").val();
             updateMarkerFromAddress($address);
         }
 
-    });
-
-    $("textarea[name='gardenAddress']").change(function(){
-        console.log("garden CHANGE 2");
     });
 
     $("button[name='submit']").click(function(event){
@@ -99,7 +91,6 @@ $(document).ready(function(){
     });
 
     function updateMarkerFromAddress(address) {
-        console.log(address);
         if (address.trim() !== "") {
             fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
             .then(response => response.json())
@@ -107,14 +98,12 @@ $(document).ready(function(){
                 if (data.length > 0) {
                     var newLocation = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
                     updateMarker(newLocation);
-                } else {
+                } 
+                else {
                     console.error('No results found for the given address.');
                 }
             })
             .catch(error => console.error('Error fetching data:', error));
-        }
-        else{
-            console.log("no");
         }
     }
 

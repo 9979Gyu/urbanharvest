@@ -36,7 +36,7 @@ if (!isset($_SESSION['email'])) {
                 <p class="message"></p>
             </article>
             <article id="mainContent" class="mainContent">
-                <form id="bookPlot">
+                <form id="bookPlot" action="index.php" method="post">
                     <input type="text" name="status" value="1" hidden/>
                     <input type="text" name="isExtend" value="0" hidden/>
                     <input type="text" name="bookID" hidden/>

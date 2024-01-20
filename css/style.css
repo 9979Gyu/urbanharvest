@@ -285,6 +285,11 @@ p.new{
     float: right;
 }
 
+.searchArea {
+    display: flex;
+    width: 50%;
+}
+
 @media print {
     body * {
         visibility: hidden;

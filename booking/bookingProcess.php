@@ -202,10 +202,24 @@
 
     }
 
-    function updateBookingStatus($conn, $bid){
+    // Cancel booking
+    function updateBookingStatus($conn, $bid, $extend){
+
+        $getPlot = "SELECT plotID FROM booking WHERE bookingID = '" . $bid . "'";
+        $getPlotID = $conn->query($getPlot);
+        $getPlotID = $getPlotID->fetch_assoc();
+
         $sql = "UPDATE booking SET bookApproval = 3, status = 0 WHERE bookingID = '" . $bid . "'";
 
         $result = $conn->query($sql);
+
+        if($result){
+            if($extend == 0){
+                $updatePlot = "UPDATE plot SET availability = 1 WHERE plotID = '" . $getPlotID["plotID"] . "'";
+
+                $result = $conn->query($updatePlot);
+            }   
+        }
 
         return $result;
 

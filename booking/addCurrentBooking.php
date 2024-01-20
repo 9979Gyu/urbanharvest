@@ -24,27 +24,32 @@
                     $result = addBooking($conn, $uid, 0);
 
                     if($result){
+                        echo "<script>alert('Booking created!');</script>";
+                        echo "redirecting in 3 seconds...";
                         echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                     }
                     else{
-                        echo "Failed to update record!";
+                        echo "<script>alert('Failed to update record!');</script>";
+                        echo "redirecting in 3 seconds...";
                         echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                     }
                 } else {
-                    echo "Booking already exists for this user and garden.";
+                    echo "<script>alert('Booking already exists for this user and garden.');</script>";
+                    echo "redirecting in 3 seconds...";
                     echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
                 }
  
             }
             else{
-                echo "Error saving booking record. Please try again";
+                echo "<script>alert('Error saving booking record. Please try again.');</script>";
+                echo "redirecting in 3 seconds...";
                 echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
             }
 
         }
         else{
             // Direct to Login
-            echo "Login required!";
+            echo "<script>alert('Login required!');</script>";
             session_unset();
             echo "<meta http-equiv=\"refresh\" content=\"3;URL=../auth/login.html\">";
         }

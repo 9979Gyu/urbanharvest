@@ -8,53 +8,40 @@
         
         if(isset($_SESSION['email'])){
 
+            $result = false;
+
             if(isset($_POST['type']) && strtolower($_POST['type']) == "edit"){
                 $bid = $_POST['bid'];
                 $bookYear = $_POST['bookYear'];
                 $result = updateBookYear($conn, $bid, $bookYear);
-
-                if($result){
-                    echo "Data successfully updated";
-                }
-                else{
-                    echo "Failed to update record!";
-                }
 
             }
             else if(isset($_POST['type']) && strtolower($_POST['type']) == 'pay'){
 
                 $bid = $_POST['bid'];
                 $paidAmount = $_POST['paidAmount'];
-                $result = false;
                 if(isset($bid) && isset($paidAmount)){
                     $result = updatePayment($conn, $bid, $paidAmount);
-                }
-
-                if($result){
-                    echo "Data successfully updated";
-                }
-                else{
-                    echo "Failed to update record!";
                 }
 
             }
             else if(isset($_POST['type']) && strtolower($_POST['type']) == 'delete'){
                 $bid = $_POST['bid'];
-                $result = false;
+                $extend = $_POST['extend'];
+
                 if(isset($bid)){
-                    $result = updateBookingStatus($conn, $bid);
+                    $result = updateBookingStatus($conn, $bid, $extend);
                 }
-
-                if($result){
-                    echo "Data successfully updated";
-                }
-                else{
-                    echo "Failed to update record!";
-                }
+            } 
+            
+            if($result){
+                // Redirect to another page after successful update
+                header("Location: index.php");
+                exit();
             }
-            // else if(isset($_POST['type']) && strtolower($_POST['type']) == 'extend'){
-
-            // }
+            else{
+                echo json_encode(['error' => 'Failed to update record!']);
+            }
             
         }
         else{

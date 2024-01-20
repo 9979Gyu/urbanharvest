@@ -28,8 +28,6 @@ $(document).ready(function () {
 
     // Function to handle the data and execute additional logic
     function handleData(data) {
-        console.log(data.length);
-        console.log($("input[name='isExtend']").val());
         if (data !== false) {
             $("#gardenName option").remove();
 
@@ -108,8 +106,6 @@ $(document).ready(function () {
                 }
             } 
             else {
-                console.log("HERE");
-
                 // Handle the case where there is no booking data
                 $(".mainContent").hide();
                 $(".message").html("No booking record exists. You can book <a href='add.php'>here</a>.").css("color", "Red");
@@ -136,7 +132,6 @@ $(document).ready(function () {
 
     function buttonControl(){
 
-        console.log(extended);
         $("button[name='extend']").hide();
         $("button[name='pay']").hide();
         $("button[name='edit']").hide();
@@ -175,7 +170,6 @@ $(document).ready(function () {
         var amount = parseFloat($("input[name='payAmount']").val());
         $("input[name='status']").val(1);
         if (isNaN(amount)) {
-            console.log("is here");
             $(".message").html("Please enter numbers only");
             scrollToMessage();
             $("input[name='payAmount']").focus();
@@ -233,6 +227,7 @@ $(document).ready(function () {
         $("input[name='status']").val(0);
         var result = window.confirm("Are you sure to cancel plot booking? Paid money is not refundable.");
         if(result){
+
             // function to update record status in db
             $.ajax({
                 url: "updateBooking.php",
@@ -241,17 +236,16 @@ $(document).ready(function () {
                 data: {
                     bid: $("input[name='bookID']").val(),
                     type: "delete",
+                    extend: $("input[name='isExtend']").val(),
                 },
-                success: function(data, status) {
-                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                success: function(data) {
+                    alert(data);
                 },
-                error: function(data, status) {
-                    alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                error: function(data){
+                    alert(data);
                 }
              
             });
-
-            window.location.reload();
         }
         else{
             event.preventDefault();

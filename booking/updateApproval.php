@@ -17,10 +17,10 @@
             }
 
             if($result){
-                echo "Data successfully updated";
+                echo json_encode(['success' => 'Record updated!']);
             }
             else{
-                echo "Failed to update record!";
+                echo json_encode(['error' => 'Failed to update record!']);
             }
             
         }
