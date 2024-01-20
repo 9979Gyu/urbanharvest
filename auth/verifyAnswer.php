@@ -23,6 +23,7 @@ if (isset($_POST['email'])) {
         $checkResult = $conn->query($checkAnswersQuery);
 
         if ($checkResult->num_rows == 1) {
+            echo "Verify answer...";
             echo "<meta http-equiv=\"refresh\" content=\"2;URL=changePass.php?email=$email\">";
 
         } else {

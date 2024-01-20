@@ -47,6 +47,7 @@
             // Retrieve the email parameter from the URL
             $email = isset($_GET['email']) ? $_GET['email'] : '';
         ?>
+        <button class="back" onclick="location.href='login.html'">Back</button>
             <input type='hidden' name='email' value='<?php echo $email; ?>'>
             <table>
                 <tr>
