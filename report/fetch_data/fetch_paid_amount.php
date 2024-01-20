@@ -1,11 +1,10 @@
 <?php
-// Include your database connection here (adjust the details accordingly)
+
 include_once '../connect.php';
 
 function fetchPaidAmountByMonth() {
     global $conn;
 
-    // SQL to retrieve total paid amount per month
     $sql = "SELECT
             DATE_FORMAT(paymentDateTime, '%Y-%m') as formattedMonth,
             SUM(paidAmount) as totalPaidAmount
