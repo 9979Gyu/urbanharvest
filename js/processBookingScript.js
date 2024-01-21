@@ -74,8 +74,8 @@ $(document).ready(function(){
                         var timeDifference = currentDate - bookingDateTime;
                         var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-                        // If the difference is more than 7 days, show the delete button
-                        if (daysDifference > 7) {
+                        // If the difference is more than 30 days, show the delete button
+                        if (daysDifference > 30) {
                             // Your logic to show the delete button here
                             newRow = newRow + '<td class="no-print">' +
                             '<button class="delete" name="delete"><i class="fas fa-trash-alt"></i></button>' +
