@@ -8,7 +8,7 @@ $(document).ready(function(){
         error: function(data, status){
             alert("Data: " + data  + "\nStatus: " + status);
         }
-    })
+    });
 
     function displayData(data){
         

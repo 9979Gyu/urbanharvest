@@ -41,6 +41,9 @@
             <li><a href="../../report/payment_status.php"><i class="fas fa-dollar-sign"></i> Payment Status</a></li>
             <li><a href="../../report/approval_status.php"><i class="fas fa-check-circle"></i> Approval Status</a></li>
         </ul>
+        </li>
+        <li>
+            <a href="../../analysis/search.php">Search</a>
         </li>';
 ?>
 

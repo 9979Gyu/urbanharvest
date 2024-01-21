@@ -23,6 +23,9 @@
                                     <li><a href="../report/paid_amount.php"><i class="fas fa-dollar-sign"></i> Total Sales</a></li>
                                     <li><a href="../report/booking_plot.php"><i class="fas fa-book"></i> Total Plots</a></li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="../analysis/search.php">Search</a>
                             </li>';
                         }
                         else if($_SESSION['role'] == 2){
@@ -48,6 +51,9 @@
                                     <li><a href="../report/payment_status.php"><i class="fas fa-dollar-sign"></i> Payment Status</a></li>
                                     <li><a href="../report/approval_status.php"><i class="fas fa-check-circle"></i> Approval Status</a></li>
                                 </ul>
+                                </li>
+                                <li>
+                                    <a href="../analysis/search.php">Search</a>
                                 </li>';
                         }
                         else if($_SESSION['role'] == 3){
@@ -62,7 +68,7 @@
                         }
                     ?>
                     
-                    <li class="is-right">
+                    <li class="to-right">
                         <a href="#"><?php echo $_SESSION['fname'] ?></a>
                         <ul class="innerlist">
                             <li><a href="../user/viewprofile.php"><i class="fas fa-user"></i> Profile</a></li>

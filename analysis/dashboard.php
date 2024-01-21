@@ -18,30 +18,6 @@ if (!isset($_SESSION['email'])) {
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-        <script>
-            $(document).ready(function () {
-                if(sessionStorage.getItem("userType") == "Admin"){
-                    newNav = '<li><a href="index.html">Home</a></li>' + 
-                    '<li><a href="#">Garden</a></li>' + 
-                    '<li><a href="booking/process.html">Booking</a></li>' + 
-                    '<li><a href="#">User</a></li>' +
-                    '<li><a href="#"><i class="fas fa-user"></i></a></li>';
-                }
-                else {
-                    newNav = '<li><a href="index.html">Home</a></li>' +
-                    '<li><a href="#">Booking</a><ul class="innerlist"><li>' + 
-                    '<a href="booking/index.html"><i class="fas fa-seedling"></i>' + 
-                    'Current Booking</a></li><li><a href="booking/history.html">' + 
-                    '<i class="fas fa-table"></i>History Booking</a></li>' + 
-                    '<li><a href="booking/viewExtend.html"><i class="fas fa-redo"></i>' +
-                    'Extend Booking</a></li><li></li></ul></li><li><a href="#">' +
-                    '<i class="fas fa-user"></i></a></li>';
-                }
-
-                $('#addhere').append(newNav);
-            });
-        </script>
     </head>
     <body>
         <?php
@@ -60,6 +36,14 @@ if (!isset($_SESSION['email'])) {
             <article id="mission">
                 <h2>Mission</h2>
                 <p>At UrbanHarvest, our mission is to empower individuals and communities to actively participate in the development of green urban landscapes. We provide a user-friendly, web-based platform that enables residents to effortlessly select, reserve, and contribute to community garden plots. Through seamless online transactions, we aim to enhance accessibility to safe, inclusive green spaces, thereby promoting environmental sustainability, community well-being, and the realization of Sustainable Development Goal 11.</p>
+            </article>
+            <article>
+                <h2>Program</h2>
+                <div class="flex-container">
+                    <img class="center" src="../assets/img/garden1.jpg" alt="community garden" width="30%">
+                    <img class="center" src="../assets/img/garden2.jpg" alt="community garden" width="30%">
+                    <img class="center" src="../assets/img/garden3.jpg" alt="community garden" width="30%">
+                </div>
             </article>
             <article id="collaboration">
                 <h2>Collaboration</h2>

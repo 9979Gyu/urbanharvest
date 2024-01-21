@@ -31,6 +31,9 @@
                             <li><a href='../../report/paid_amount.php'><i class='fas fa-dollar-sign'></i> Total Sales</a></li>
                             <li><a href='../../report/booking_plot.php'><i class='fas fa-book'></i> Total Plots</a></li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href='../../analysis/search.php'>Search</a>
                     </li>";
 ?>
 

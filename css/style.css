@@ -282,11 +282,10 @@ p.new{
 }
 
 .to-right{
-    float: right;
+    right: 0;
 }
 
 .searchArea {
-    display: flex;
     width: 50%;
 }
 
