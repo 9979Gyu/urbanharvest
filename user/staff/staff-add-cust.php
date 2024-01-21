@@ -147,11 +147,11 @@ echo
     <form method='post' action='addnewCust.php'>
         <tr>
             <th><label for='firstName'>First Name</label> </th>  
-            <td><input type='text' id='firstName' name='firstName' placeholder='First Name' required></td>
+            <td><input type='text' id='firstName' name='firstName' placeholder='First Name' pattern='[A-Za-z]+' title='Only letters are accepted'required></td>
         </tr>
         <tr>
             <th><label for='lastName'>Last Name</label> </th>  
-            <td><input type='text' id='lastName' name='lastName' placeholder='Last Name' required></td>
+            <td><input type='text' id='lastName' name='lastName' placeholder='Last Name' pattern='[A-Za-z]+' title='Only letters are accepted' required></td>
         </tr>
         <tr>
             <th><label for='email'>Email</label></th> 
@@ -159,7 +159,7 @@ echo
         </tr>
         <tr>
             <th><label for='contactNo'>Phone Number</label> </th> 
-            <td><input type='tel' id='contactNo' name='contactNo' placeholder='Enter Phone Number' required></td>
+            <td><input type='number' id='contactNo' name='contactNo' placeholder='Enter Phone Number' required></td>
         </tr>
         <tr>
             <th><label for='homeAddress'>Address</label> </th> 
