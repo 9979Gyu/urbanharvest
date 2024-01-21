@@ -14,11 +14,14 @@
         <link rel="stylesheet" href="css/authStyle.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        
+        <script>
+        // Redirect to auth/login.html
+        window.location.href = 'auth/login.html';
+    </script>
     </head>
 
     <body></body>
-    <?php
-            require("auth/login.html");
-    ?>
+    <!-- <?php
+            include("auth/login.html");
+    ?> -->
 </html>
