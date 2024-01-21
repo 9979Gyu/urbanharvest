@@ -1,7 +1,16 @@
-<!DOCTYPE html>
 <?php
-    session_start();
+// Start the session
+session_start();
+
+// Check if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: ../auth/login.html");
+    exit();
+}
 ?>
+
+<!DOCTYPE html>
 <html>
     <head>
         <title>Urban Harvest-Booking</title>
