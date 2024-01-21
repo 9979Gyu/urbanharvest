@@ -34,10 +34,13 @@
                 }
             } 
             
-            if($result){
+            if($result && $_SESSION['role'] == 3){
                 // Redirect to another page after successful update
                 header("Location: index.php");
                 exit();
+            }
+            else if($_SESSION['role'] != 3){
+                echo json_encode(['success' => 'Record updated!']);
             }
             else{
                 echo json_encode(['error' => 'Failed to update record!']);

@@ -27,6 +27,13 @@ $(document).ready(function(){
                         '<td><a href="viewTransaction.php" class="view-details" data-booking-id="' + row.bookingID + '">' + row.email + '</a></td>' + 
                         '<td>' + row.bookDateTime + '</td>' + 
                         '<td>' + row.bookYear + '</td>';
+
+                    if(row.isExtend == 1){
+                        newRow = newRow + '<td><span id="isExtend">Extend</span></td>'
+                    }
+                    else{
+                        newRow = newRow + '<td><span id="isExtend">Normal</span></td>'
+                    }
                         
                     if(row.bookApproval == 0){
                         newRow = newRow + '<td><span id="approval">Pending</span></td>';
@@ -58,6 +65,24 @@ $(document).ready(function(){
                             '</td>' +
                             '</tr>';
                     }
+                    else if(row.bookApproval == 1 && row.paymentStatus == 0){
+                        // Assuming row.bookDateTime is a string in the format "YYYY-MM-DD HH:mm:ss"
+                        var bookingDateTime = new Date(row.bookDateTime);
+                        var currentDate = new Date();
+
+                        // Calculate the difference in days
+                        var timeDifference = currentDate - bookingDateTime;
+                        var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                        // If the difference is more than 7 days, show the delete button
+                        if (daysDifference > 7) {
+                            // Your logic to show the delete button here
+                            newRow = newRow + '<td class="no-print">' +
+                            '<button class="delete" name="delete"><i class="fas fa-trash-alt"></i></button>' +
+                            '</td>' +
+                            '</tr>';
+                        }
+                    }
                     else{
                         newRow = newRow + '<td class="no-print">' + '</td>' + '</tr>';
                     }
@@ -66,7 +91,7 @@ $(document).ready(function(){
                 }); 
             }
             else{
-                newRow = '<tr><td colspan="9">No record exists</td></tr>';
+                newRow = '<tr><td colspan="10">No record exists</td></tr>';
                 dtTable.append(newRow);
             }
         }
@@ -93,6 +118,9 @@ $(document).ready(function(){
                         return true;
                     }
                     else if (selectedValue == "CANCELLED" && row.bookApproval == 3) {
+                        return true;
+                    }
+                    else if (selectedValue == "UNPAID" && row.paymentStatus == 0) {
                         return true;
                     }
                     return false;
@@ -151,6 +179,43 @@ $(document).ready(function(){
                 },
                 error: function(data){
                     alert(data);
+                }
+             
+            });
+        }
+        else{
+            event.preventDefault();
+        }
+    });
+
+    $('table').on('click', 'button[name="delete"]', function (event) {
+        var result = window.confirm("Are you sure to remove this booking request? ");
+        if(result){
+
+            $extend = $("#isExtend").text().trim().toLowerCase();
+            if($extend == "extend"){
+                $extend = 1;
+            }
+            else{
+                $extend = 0;
+            }
+
+            // Update approval using ajax post method
+            $.ajax({
+                url: "updateBooking.php",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    bid: $(this).closest('tr').find('.indicator').val(),
+                    type: "delete",
+                    extend: $extend,
+                },
+                success: function(response) {
+                    alert(response.success);
+                    window.location.href = "process.php";
+                },
+                error: function(error){
+                    alert("Error message: " + error);
                 }
              
             });

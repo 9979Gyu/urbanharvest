@@ -33,6 +33,7 @@
                     <input type="radio" name="selection" value="pending" /> Pending
                     <input type="radio" name="selection" value="approved" /> Approved
                     <input type="radio" name="selection" value="declined" /> Declined
+                    <input type="radio" name="selection" value="unpaid" /> Unpaid
                 </div>
                 <br/>
                 
@@ -45,6 +46,7 @@
                             <th>User</th>
                             <th>Book Date Time</th>
                             <th>Use Year</th>
+                            <th>Category</th>
                             <th>Approval</th>
                             <th>Payment Status</th>
                             <th class="no-print">Action</th>
