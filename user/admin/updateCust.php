@@ -40,11 +40,11 @@ if ($result->num_rows > 0) {
         <table class='input-table'>
             <tr>
                 <th><label for='firstName'>First Name</label> </th>  
-                <td><input type='text' id='firstName' name='firstName' value='" . $row['firstName'] . "' required></td>
+                <td><input type='text' id='firstName' name='firstName' value='" . $row['firstName'] . "' pattern='[A-Za-z]+' title='Only letters are accepted'  required></td>
             </tr>
             <tr>
                 <th><label for='lastName'>Last Name</label> </th>  
-                <td><input type='text' id='lastName' name='lastName' value='" . $row['lastName'] . "' required></td>
+                <td><input type='text' id='lastName' name='lastName' value='" . $row['lastName'] . "' pattern='[A-Za-z]+' title='Only letters are accepted' required></td>
             </tr>
             <tr>
                 <th><label for='email'>Email</label></th> 
@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
             </tr>
             <tr>
                 <th><label for='contactNo'>Phone Number</label> </th> 
-                <td><input type='tel' id='contactNo' name='contactNo' value='" . $row['contactNo'] . "' required></td>
+                <td><input type='number' id='contactNo' name='contactNo' value='" . $row['contactNo'] . "' required></td>
             </tr>
             <tr>
                 <th><label for='homeAddress'>Phone Number</label> </th> 

@@ -108,14 +108,16 @@ include('../../connect.php');
     <?php
     $sql = "SELECT * FROM user WHERE roleID = 3 AND status = 1 ORDER BY userID ASC";
     $result = $conn->query($sql);
-
+    $bil=0;
     if($result->num_rows > 0) {
         echo "<table id='cust-table' class='display-table' border='1'>";
-        echo "<thead><tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
+        echo "<thead><tr><th>NO</th><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
         <th>ACTION</th></tr>";
 
         while($row=$result->fetch_assoc()) {
+            $bil++;
             echo "<tr>";
+            echo "<td>".$bil."</td>";
             echo "<td>".$row['userID']."</td>";
             echo "<td>".$row['firstName']."</td>";
             echo "<td>".$row['lastName']."</td>";
@@ -136,10 +138,11 @@ include('../../connect.php');
     } else {
         echo "<table id='cust-table' class='display-table' border='1'>";
 
-        echo "<thead><tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
+        echo "<thead><tr><th>NO</th><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
         </tr>";
         echo "<tr>";
         echo "<td>No record found</td>";
+        echo "<td></td>";
         echo "<td></td>";
         echo "<td></td>";
         echo "<td></td>";
@@ -172,11 +175,12 @@ include('../../connect.php');
         echo "</table>";
         
     } else {
-        echo "<table id='cust-table' class='display-table' border='1'>";
+        echo "<table id='savetable' class='display-table' border='1'>";
         echo "<thead><tr><th>No.</th><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>EMAIL</th><th>PHONE</th><th>ADDRESS</th>
-        <th>ACTION</th></tr>";
+        </tr>";
         echo "<tr>";
         echo "<td>No record found</td>";
+        echo "<td></td>";
         echo "<td></td>";
         echo "<td></td>";
         echo "<td></td>";
