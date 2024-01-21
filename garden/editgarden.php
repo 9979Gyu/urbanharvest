@@ -47,7 +47,7 @@
         ?>
 
         <section>
-            <h1 class="title">New Garden</h1>
+            <h1 class="title">Edit Garden</h1>
             <article>
                 <form id="gardenPlot" method="post" action="editprocess.php">
                     <table>
