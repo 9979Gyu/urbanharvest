@@ -340,10 +340,6 @@ button {
     border-radius: 100%;
 }
 
-.to-right{
-    float: right;
-}
-
 @media print {
     body * {
         visibility: hidden;

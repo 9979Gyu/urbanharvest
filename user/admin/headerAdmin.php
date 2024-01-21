@@ -37,7 +37,7 @@
                     </li>";
 ?>
 
-        <li class="is-right"><a href='#'><?php echo $_SESSION['fname'] ?></a>
+        <li><a href='#'><?php echo $_SESSION['fname'] ?></a>
 <?php
         echo"
             <ul class='innerlist'>
