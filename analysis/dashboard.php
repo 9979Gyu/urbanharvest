@@ -1,8 +1,17 @@
+<?php
+// Start the session
+session_start();
+
+// Check if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: ../auth/login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
-    <?php
-        session_start();
-    ?>
     <head>
         <title>Urban Harvest-Home</title>
         <link rel="icon" href="../assets/img/logo.png"/>
