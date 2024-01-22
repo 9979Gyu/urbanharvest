@@ -33,7 +33,6 @@
             });
 
             function downloadPDFWithBrowserPrint() {
-                
                 window.print();
             }
 
@@ -106,12 +105,37 @@
                                         if ($row['status'] == 1) {
                                             $count++;
                                             $gardenID = $row['gardenID'];
-                                            $sqlnoplot = "SELECT COUNT(plotID) FROM plot WHERE gardenID = '$gardenID' AND  status != 0";
+                                            $sqlnoplot = "SELECT COUNT(plotID) FROM plot WHERE gardenID = '$gardenID' AND status != 0";
                                             $resultplot = mysqli_query($conn, $sqlnoplot);
                                             $rowplot = mysqli_fetch_assoc($resultplot);
                                             $plotCount = $rowplot['COUNT(plotID)'];
+                                            if ($plotCount != 0) {
+                                                $sqldata = "SELECT COUNT(plotID) FROM plot WHERE gardenID = '$gardenID' AND (availability != 1 AND status != 0)";
+                                                $resultdata = mysqli_query($conn, $sqldata);
 
-                                            echo '<tr>
+                                                if ($resultdata) {
+                                                    $rowdata = mysqli_fetch_assoc($resultdata);
+                                                    $getdata = $rowdata['COUNT(plotID)'];
+                                                    // echo $getdata . "<br>" ;
+                                                }
+                                                
+                                                echo '<tr>';
+                                                    if($getdata > 0) {
+                                                        echo '<td><input type="checkbox" name="del_cb[]" disabled/></td>';
+                                                    }
+                                                    else {
+                                                        echo '<td><input type="checkbox" name="del_cb[]" value="' . $row['gardenID'] . '"/></td>';
+                                                    }
+
+                                                 echo '       
+                                                        <td>' . $count . '</td>
+                                                        <td><a href="plot.php?id=' . $row['gardenID'] . '">' . $row['name'] . '</a></td>
+                                                        <td>' . $row['address'] . '</td>
+                                                        <td>' . $plotCount . '</td>
+                                                        <td><a class="submit" href="editgarden.php?id=' . $row['gardenID'] . '" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a></td>
+                                                    </tr>';
+                                            } else {
+                                                echo '<tr>
                                                     <td><input type="checkbox" name="del_cb[]" value="' . $row['gardenID'] . '"/></td>
                                                     <td>' . $count . '</td>
                                                     <td><a href="plot.php?id=' . $row['gardenID'] . '">' . $row['name'] . '</a></td>
@@ -119,6 +143,7 @@
                                                     <td>' . $plotCount . '</td>
                                                     <td><a class="submit" href="editgarden.php?id=' . $row['gardenID'] . '" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a></td>
                                                 </tr>';
+                                            }
                                         } else {
                                             echo "";
                                         }
