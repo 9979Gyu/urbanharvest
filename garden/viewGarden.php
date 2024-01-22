@@ -106,7 +106,7 @@
                                         if ($row['status'] == 1) {
                                             $count++;
                                             $gardenID = $row['gardenID'];
-                                            $sqlnoplot = "SELECT COUNT(plotID) FROM plot WHERE gardenID = '$gardenID' AND (availability != 0 OR status != 0)";
+                                            $sqlnoplot = "SELECT COUNT(plotID) FROM plot WHERE gardenID = '$gardenID' AND  status != 0";
                                             $resultplot = mysqli_query($conn, $sqlnoplot);
                                             $rowplot = mysqli_fetch_assoc($resultplot);
                                             $plotCount = $rowplot['COUNT(plotID)'];
