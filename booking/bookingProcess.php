@@ -185,7 +185,7 @@
     }
 
     function getAllBooking($conn){
-        $sql = "SELECT booking.bookingID, garden.name, booking.plotID, garden.address, user.email, booking.bookDateTime, booking.bookYear, booking.bookApproval, booking.paymentStatus
+        $sql = "SELECT booking.bookingID, garden.name, booking.plotID, garden.address, user.email, booking.bookDateTime, booking.bookYear, booking.bookApproval, booking.paymentStatus, booking.isExtend
         FROM booking 
         JOIN plot ON plot.plotID = booking.plotID
         JOIN garden ON garden.gardenID = plot.gardenID
