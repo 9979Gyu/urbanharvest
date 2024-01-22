@@ -86,20 +86,25 @@
 
                                     if ($pstatus == 0) {
                                         echo "";
-                                        
                                     } else {
                                         $count++;
                                         echo '<tr>
-                                                <td>
-                                                    <input type="checkbox" name="delplot_cb[]" value="' . $pid . '"/>
-                                                    <input type="hidden" name="g_id" value="' . $getGardenID . '"/>
-                                                </td>
+                                                <td>';
+                                        if ($pavailability == 1) {
+                                            echo '<input type="checkbox" name="delplot_cb[]" value="' . $pid . '"/>
+                                                  <input type="hidden" name="g_id" value="' . $getGardenID . '"/>';
+                                        } else {
+                                            echo '<input type="checkbox" name="delplot_cb[]" disabled/>';
+                                        }
+                                        
+                                        echo '</td>
                                                 <td>' . $count . '</td>
                                                 <td>' . $psize . '</td>
                                                 <td>' . $status_avb . '</td>
                                                 <td><a class="submit" href="editplot.php?id=' . $pid . '" style="background-color: rgb(234,180,100);"><i class="fa fa-edit"></i></a></td>
                                               </tr>';
                                     }
+                                    
                                     ?>
                         <?php   } ?>
                             
