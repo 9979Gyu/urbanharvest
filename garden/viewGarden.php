@@ -3,67 +3,96 @@
 <html>
     <head>
         <title>List Garden Details</title>
-        <link rel="icon" href="../assets/img/logo.png"/>
+        <link rel="icon" href="assets/img/logo.png"/>
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
         <script>
+            
+            function generatePDF() {
+                const element = document.getElementById('saveTable');
+                const titleDiv = document.createElement('div');
+                titleDiv.style.textAlign = 'center';
+                titleDiv.style.padding = '10px'; 
+                titleDiv.style.fontWeight = 'bold';
+                titleDiv.style.fontSize = '18px';
+                titleDiv.innerHTML = 'List of Garden Details';
+
+                const container = document.createElement('div');
+                container.style.width = '595px'; 
+                container.style.height = '842px'; 
+                container.style.margin = 'auto'; 
+                container.appendChild(titleDiv);
+                container.appendChild(element.cloneNode(true));
+                html2pdf().from(container).save();
+            }
             $(document).ready(function(){
                 $("#saveTable").hide();
+                $("#saveBtn").hide();
+                $("#saveExcBtn").hide();
+                $("#cancelBtn").hide();
 
-                $("#saveBtn").click(function(){
-                    $("#headdiv, #btn, #saveBtn, #saveExcBtn, #table, #footdiv").hide();
+                $("#dwldBtn").click(function () {
+                    $("#table").hide();
+                    $("#btn").hide();
                     $("#saveTable").show();
-                    downloadPDFWithBrowserPrint();
-                    $("#saveTable").hide();
-                    $("#headdiv, #btn, #saveBtn, #saveExcBtn, #table, #footdiv").show();
+                    $("#dwldBtn").hide();
+                    $("#cancelBtn").show();
+                    $("#saveBtn").show();
+                    $("#saveExcBtn").show();
+                });
+
+                $("#cancelBtn").click(function () {
+                    window.location.href = "viewGarden.php";
                 });
 
                 $("#saveExcBtn").click(function () {
                     downloadExcel();
                     $("#saveTable").hide();
-
                 });
+
+                $("#saveBtn").click(function(){
+                    setTimeout(function() {
+                        generatePDF();
+                    }, 1000);
+                });
+
+                function downloadExcel() {
+                    var wb = XLSX.utils.book_new();
+                    wb.SheetNames.push('List Garden Data');
+                    wb.Sheets['List Garden Data'] = XLSX.utils.aoa_to_sheet([['No', 'Garden', 'Address', 'Number Of Plot']].concat(getTableData()));
+                    XLSX.writeFile(wb, 'listgarden.xlsx');
+                    showAlert('Downloading Excel...');
+                    window.location.href = "viewGarden.php";
+                }
+
+                function getTableData() {
+                    var data = [];
+                    $("#saveTable").show();
+                    
+                    $('#saveTable tr').each(function () {
+                        var row = [];
+                        $(this).find('td').each(function () {
+                            row.push($(this).text());
+                        });
+                        data.push(row);
+                    });
+                    return data;
+                }
+
+                function showAlert(message) {
+                    alert(message);
+                }
 
             });
-
-            function downloadPDFWithBrowserPrint() {
-                window.print();
-            }
-
-            function downloadExcel() {
-                var wb = XLSX.utils.book_new();
-                wb.SheetNames.push('List Garden Data');
-                wb.Sheets['List Garden Data'] = XLSX.utils.aoa_to_sheet([['No', 'Garden', 'Address', 'Number Of Plot']].concat(getTableData()));
-                XLSX.writeFile(wb, 'listgarden.xlsx');
-                showAlert('Downloading Excel...');
-            }
-
-            function getTableData() {
-                var data = [];
-                $("#saveTable").show();
-                
-                $('#saveTable tr').each(function () {
-                    var row = [];
-                    $(this).find('td').each(function () {
-                        row.push($(this).text());
-                    });
-                    data.push(row);
-                });
-                return data;
-            }
-
-            function showAlert(message) {
-                alert(message);
-            }
-
         </script>
+
     </head>
     <body>
         <div id="headdiv"> <?php require("../head.php"); ?> </div>
@@ -190,6 +219,8 @@
 
                     </table>
                 </form> 
+                <button id='dwldBtn' class="normal"><i class="fa fa-download"></i> Download</button>
+                <button id='cancelBtn' class="delete"> Cancel</button>
                 <button id='saveBtn' class="normal"> PDF</button>
                 <button id='saveExcBtn' class="submit"> Excel</button>
             </article>
