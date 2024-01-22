@@ -189,8 +189,8 @@
 
                     </table>
                 </form> 
-                <button id='saveBtn'> PDF</button>
-                <button id='saveExcBtn'> Excel</button>
+                <button id='saveBtn' class="normal"> PDF</button>
+                <button id='saveExcBtn' class="submit"> Excel</button>
             </article>
         </section>
 
