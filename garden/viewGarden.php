@@ -121,7 +121,7 @@
                                                 
                                                 echo '<tr>';
                                                     if($getdata > 0) {
-                                                        echo '<td><input type="checkbox" name="del_cb[]" disabled/></td>';
+                                                        echo '<td><input type="checkbox" name="del_cb[]" value="' . $row['gardenID'] . '" disabled/></td>';
                                                     }
                                                     else {
                                                         echo '<td><input type="checkbox" name="del_cb[]" value="' . $row['gardenID'] . '"/></td>';
@@ -189,8 +189,8 @@
 
                     </table>
                 </form> 
-                <button id='saveBtn' class="normal"> PDF</button>
-                <button id='saveExcBtn' class="submit"> Excel</button>
+                <button id='saveBtn'> PDF</button>
+                <button id='saveExcBtn'> Excel</button>
             </article>
         </section>
 
