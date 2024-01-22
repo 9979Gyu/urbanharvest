@@ -94,7 +94,8 @@
                                             echo '<input type="checkbox" name="delplot_cb[]" value="' . $pid . '"/>
                                                   <input type="hidden" name="g_id" value="' . $getGardenID . '"/>';
                                         } else {
-                                            echo '<input type="checkbox" name="delplot_cb[]" disabled/>';
+                                            echo '<input type="checkbox" name="delplot_cb[]" value="' . $pid . '" disabled/>
+                                                  <input type="hidden" name="g_id" value="' . $getGardenID . '"/>';
                                         }
                                         
                                         echo '</td>
